@@ -239,3 +239,37 @@ footer .brand{color:#fff;margin-bottom:18px}footer .brand-sub{color:var(--gold-2
 @media (max-width:640px){.people{grid-template-columns:1fr 1fr;gap:14px}.photo-band{padding:90px 0}}
 @media (prefers-reduced-motion:reduce){.g-slide.active img{animation:none!important;transform:none}}
 html,body{overflow-x:clip}
+/* payments (demo) */
+.nav-pay{background:transparent;color:var(--navy);border-color:var(--navy)}.nav-pay:hover,.nav-pay[aria-current]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pay-banner{background:var(--sand);color:var(--navy);font-size:.9rem;padding:12px 0;border-bottom:1px solid #d6c7aa}
+.trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0 0 12px}
+.trust-row span{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.85rem;font-weight:600;color:var(--navy)}
+.trust-row svg{width:18px;height:18px;stroke:var(--gold-d)}
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.pay-card{background:#fff;border-radius:12px;box-shadow:var(--sh);padding:26px 26px 22px;text-align:center;border-top:5px solid var(--brand,var(--navy));transition:.25s}
+.pay-card:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
+.pay-cashapp{--brand:#00d64f;--brand-ink:#008a33}.pay-venmo{--brand:#008cff;--brand-ink:#0067c0}.pay-strike{--brand:#111;--brand-ink:#111}
+.pay-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.wordmark{font:800 1.35rem/1 var(--sans);letter-spacing:-.02em;color:var(--brand-ink)}
+.pay-venmo .wordmark{font-style:italic}.pay-strike .wordmark{text-transform:lowercase;letter-spacing:.02em}
+.pay-tag{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.qr-wrap{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;width:max-content;margin:0 auto}
+.qr-wrap img{width:200px;height:200px}
+.qr-fine{font-size:.74rem;color:var(--muted);margin:8px 0 14px}
+.pay-handle{margin:0 0 6px}.pay-handle span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}.pay-handle strong{font:600 1.25rem var(--sans);color:var(--navy)}
+.pay-how{font-size:.9rem;color:var(--muted);margin:0 0 8px}
+.demo-screen{background:linear-gradient(180deg,var(--navy) 0 230px,var(--cream) 230px);padding:40px 16px 70px}
+.receipt{max-width:440px;margin:0 auto;background:#fff;border-radius:18px;box-shadow:var(--sh2);padding:30px 26px;text-align:center}
+.r-check svg{width:64px;height:64px;fill:none;stroke:var(--gold-d);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.r-check circle{fill:#e8f2f0}
+.r-method{margin:10px 0 0;font-size:.8rem;text-transform:uppercase;letter-spacing:.16em;font-weight:700;color:var(--gold-d)}
+.m-cashapp .r-method{color:#008a33}.m-venmo .r-method{color:#0067c0}.m-strike .r-method{color:#111}
+.r-title{font-size:2.1rem;margin:6px 0 2px}.r-to{color:var(--muted);margin:0 0 18px}.r-to span{font-size:.85rem}
+.r-big{background:#fff6e5;border:2px solid #e2b866;color:#5a3d06;border-radius:12px;padding:16px;font-size:1.02rem;line-height:1.5;margin-bottom:20px;text-align:left}
+.tater{margin:0 0 18px}.tater img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px}.tater figcaption{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--navy);margin-top:8px}
+.r-rows{margin:0 0 22px;border-top:1px solid var(--line)}.r-rows div{display:flex;justify-content:space-between;padding:10px 2px;border-bottom:1px solid var(--line);font-size:.92rem}.r-rows dt{color:var(--muted)}.r-rows dd{margin:0;font-weight:600;color:var(--navy)}
+@media (max-width:960px){.pay-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+.menu .nav-cta{white-space:nowrap}.menu a.nav-pay{background:transparent;color:var(--navy);border-color:var(--navy)}.menu a.nav-pay:hover,.menu a.nav-pay[aria-current]{background:var(--navy);color:#fff}
+.menu .nav-pay-li+.nav-cta-li{margin-left:8px}
+@media (max-width:1180px) and (min-width:961px){.menu .nav-cta{padding:10px 12px;font-size:.82rem}}
+@media (max-width:960px){.menu .nav-pay-li+.nav-cta-li{margin:10px 0 0}}

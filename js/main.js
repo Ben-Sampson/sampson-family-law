@@ -37,3 +37,4 @@ const y=$('#yr');if(y)y.textContent=new Date().getFullYear();
  g.addEventListener('focusin',()=>{hover=true;clearTimeout(t)});g.addEventListener('focusout',()=>{hover=false;arm()});
  g.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(i-1);if(e.key==='ArrowRight')go(i+1)});
  setP(paused);go(0)})})();
+(()=>{const pf=document.querySelector('#pay-form');if(pf)pf.addEventListener('submit',e=>{e.preventDefault();pf.reset();const n=document.querySelector('#pay-notice');n.classList.add('show');n.focus()})})();

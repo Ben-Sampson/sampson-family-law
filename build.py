@@ -47,6 +47,7 @@ def shell(path,title,body,desc="",current=""):
 <li><a href="{r}insights/index.html"{cur("insights")}>Insights</a></li>
 <li class="has-dd"><button aria-expanded="false" aria-haspopup="true">Resources<span class="caret">▼</span></button><div class="dd"><a href="{r}evidence.html">Evidence &amp; data</a><a href="{r}build-log.html">Build log</a><a href="{r}credits.html">Image credits</a></div></li>
 <li><a href="{r}contact.html"{cur("contact")}>Contact</a></li>
+<li class="nav-cta-li nav-pay-li"><a class="btn nav-cta nav-pay" href="{r}payments.html"{cur("payments")}>Make a Payment</a></li>
 <li class="nav-cta-li"><a class="btn nav-cta" href="{r}contact.html">Free Consultation</a></li>
 </ul></nav></div></header><div class="scrim" aria-hidden="true"></div>
 <main id="main">{body}</main>
@@ -54,13 +55,13 @@ def shell(path,title,body,desc="",current=""):
 <div><a class="brand" href="{r}index.html">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
 <p>Steady counsel for Oklahoma families. A fictional firm, imagined and built for a law school course.</p></div>
 <div><h4>Practice Areas</h4><ul>{"".join(f'<li><a href="{r}practice-areas/{a["slug"]}.html">{a["name"]}</a></li>' for a in AREAS)}</ul></div>
-<div><h4>Explore</h4><ul><li><a href="{r}about.html">About the firm</a></li><li><a href="{r}people/hunter-sampson.html">Hunter Sampson</a></li><li><a href="{r}people/libby-sampson.html">Libby Sampson</a></li><li><a href="{r}team.html">Our team</a></li><li><a href="{r}testimonials.html">Client stories</a></li><li><a href="{r}insights/index.html">Insights</a></li><li><a href="{r}evidence.html">Evidence &amp; data</a></li><li><a href="{r}credits.html">Image credits</a></li><li><a href="{r}build-log.html">Build log</a></li></ul></div>
+<div><h4>Explore</h4><ul><li><a href="{r}about.html">About the firm</a></li><li><a href="{r}people/hunter-sampson.html">Hunter Sampson</a></li><li><a href="{r}people/libby-sampson.html">Libby Sampson</a></li><li><a href="{r}team.html">Our team</a></li><li><a href="{r}testimonials.html">Client stories</a></li><li><a href="{r}insights/index.html">Insights</a></li><li><a href="{r}evidence.html">Evidence &amp; data</a></li><li><a href="{r}credits.html">Image credits</a></li><li><a href="{r}build-log.html">Build log</a></li><li><a href="{r}payments.html">Make a payment (demo)</a></li></ul></div>
 <div><h4>Visit (fictional)</h4><ul><li>{ADDR1}<br>{ADDR2}</li><li><a href="tel:{TEL}">{PHONE}</a></li><li>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</li></ul><p style="margin-top:18px"><a class="btn nav-cta" href="{r}contact.html">Schedule a consultation</a></p></div>
 </div>
 <div class="f-legal">
 <p><strong>Demonstration project. Not a law firm.</strong> Sampson Family Law is a fictional firm created by a law student for a law school course on AI and the Law. It is not a real law firm and has no office, staff, or clients. Every person named on this site, including Hunter Sampson, Libby Sampson, Jane, Tater, and every client, is a fictional character. The people in the photographs are the site owner's family and friends (and dog) playing those roles; their photos are used with permission of the owner and do not depict real attorneys, staff, or clients. No one on this site is a licensed attorney, and the creator is not licensed to practice law in Oklahoma or any other jurisdiction.</p>
 <p><strong>No legal advice. No attorney-client relationship.</strong> Nothing on this site is legal advice, and using it does not create an attorney-client relationship. Statutes and procedures change; information here is general and may be incomplete or out of date. For help with a real legal matter in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p>
-<p><strong>Fictional details.</strong> The address, suite, phone number (555 numbers are reserved for fiction), hours, testimonials, client stories, characters, case outcomes, team members, credentials, and badges are invented for the demonstration. They are not real reviews, awards, bar memberships, or certifications. The contact form sends nothing. Statistics on the <a href="{r}evidence.html">evidence page</a> are real and cited to their public sources. Character photographs are personal photos used with permission of the owner; other photographs are free-licensed. See <a href="{r}credits.html">image credits</a>.</p>
+<p><strong>Fictional details.</strong> The address, suite, phone number (555 numbers are reserved for fiction), hours, testimonials, client stories, characters, case outcomes, team members, credentials, and badges are invented for the demonstration. They are not real reviews, awards, bar memberships, or certifications. The contact form sends nothing. The payments page takes no payments: its handles are fictional, and its QR codes open a demonstration page on this site, not any payment app or account. Statistics on the <a href="{r}evidence.html">evidence page</a> are real and cited to their public sources. Character photographs are personal photos used with permission of the owner; other photographs are free-licensed. See <a href="{r}credits.html">image credits</a>.</p>
 <div class="f-bottom"><span>© <span id="yr">2026</span> Sampson Family Law (fictional). Student demonstration project.</span><span>Built with AI agents · <a href="{r}build-log.html">See how</a></span></div>
 </div></div></footer>
 <button class="to-top" aria-label="Back to top">↑</button>
@@ -284,6 +285,50 @@ pages["credits.html"]=("Image Credits",hero("Image Credits","Stock photographs a
 <section class="s"><div class="container"><table class="data credits"><tr><th>Preview</th><th>Image (Wikimedia Commons)</th><th>Author</th><th>License</th></tr>{rows}</table>
 <p class="src">Changes: images were downscaled, recompressed, and displayed under navy color overlays or cropped. CC BY and CC BY 4.0 images are used with attribution as required; CC0 images require none but are credited anyway.</p>
 <h2 style="margin-top:40px">Personal photographs</h2><p>All photographs of people (and Tater), and the Hawaii beach and golf backgrounds, are personal photos used with permission of the owner. They were resized, cropped, and stripped of all EXIF and GPS metadata before publishing. The people shown are family and friends playing fictional characters.</p><h2 style="margin-top:40px">Original artwork</h2><p>The Sampson monogram logo, icons, and the office map illustration are original SVG artwork created for this project.</p></div></section>''',"")
+
+# ---------- PAYMENTS (demo only)
+PAY=[("cashapp","Cash App","$SampsonFamilyLaw","Open Cash App, tap the scan icon, and point your camera at the code."),
+     ("venmo","Venmo","@Sampson-Family-Law","In Venmo, tap Scan and hold your phone over the code."),
+     ("strike","Strike","sampsonlaw","In Strike, tap Send, then scan the code.")]
+def pay_card(k,name,handle,how):
+    return f'''<article class="pay-card pay-{k} reveal"><div class="pay-top"><span class="wordmark">{name}</span><span class="pay-tag">Demo</span></div>
+<div class="qr-wrap"><img src="img/qr/{k}.svg" width="200" height="200" alt="Demo QR code. Opens a demonstration page on this site, not {name}."></div>
+<p class="qr-fine">Demo QR, opens a demonstration page</p>
+<p class="pay-handle"><span>Pay to (fictional)</span><strong>{html.escape(handle)}</strong></p><p class="pay-how">{how}</p>
+<p class="fine">Fictional handle, not a real {name} account. Do not send money.</p></article>'''
+pages["payments.html"]=("Make a Payment",hero("Make a Payment","Pay an invoice or replenish a retainer. (Demonstration: no payment can be made on this site.)",['<a href="index.html">Home</a>',"Make a Payment"],"bg/twilight.jpg")+f"""
+<div class="pay-banner" role="note"><div class="container"><strong>Demonstration only.</strong> Sampson Family Law is a fictional firm. Nothing on this page can request, process, or receive a payment. Please do not send money to any handle shown here.</div></div>
+<section class="s cream"><div class="container"><div class="s-head center reveal"><span class="eyebrow">Pay your invoice</span><h2>Pay with the app you already use</h2><p>Have your invoice number handy. Scan a code with your phone's camera, or enter your invoice details below to see how a real payment portal would work.</p></div>
+<div class="trust-row reveal"><span>{ico("shield")} Encrypted connection (HTTPS)</span><span>{ico("doc")} Itemized receipts</span><span>{ico("scale")} Retainers held in trust</span></div>
+<p class="fine" style="text-align:center;margin:0 0 34px">Illustrative badges only; they are not certifications, audits, or compliance claims.</p>
+<div class="pay-grid">{"".join(pay_card(*x) for x in PAY)}</div></div></section>
+<section class="s"><div class="container info-grid"><div class="reveal"><span class="eyebrow">Invoice or retainer</span><h2>Pay by invoice number</h2><p>Enter the invoice number from your statement and the amount you want to pay. Retainer replenishments use the matter number in place of an invoice number.</p>
+<ul class="checks"><li>Partial payments are welcome; your balance updates on the next statement.</li><li>Retainer deposits go to the firm's client trust account until earned.</li><li>A receipt is emailed the same business day.</li></ul><p class="fine">Describes how a real firm might work. This fictional firm has no clients, invoices, or trust account.</p></div>
+<div class="form-card reveal d1"><h3>Invoice payment</h3><div class="demo-flag" role="note"><strong>Demo form.</strong> Nothing is charged, sent, or stored. Do not enter real card or account details.</div>
+<form id="pay-form" action="#" method="post" novalidate>
+<div class="form-row"><div class="field"><label for="p-inv">Invoice or matter number</label><input id="p-inv" name="invoice" type="text" placeholder="e.g. SFL-2026-0142" autocomplete="off"></div><div class="field"><label for="p-amt">Amount (USD)</label><input id="p-amt" name="amount" type="text" inputmode="decimal" placeholder="250.00" autocomplete="off"></div></div>
+<div class="field"><label for="p-type">Payment for</label><select id="p-type" name="type"><option>Invoice balance</option><option>Retainer replenishment</option><option>Consultation fee</option></select></div>
+<div class="field"><label for="p-name">Name on matter</label><input id="p-name" name="name" type="text" autocomplete="off"></div>
+<button type="submit" class="btn btn-navy" style="width:100%;justify-content:center">Continue to payment (demo)</button>
+<p class="fine" style="margin-top:12px">This demo performs no network request and collects no payment information.</p></form>
+<div id="pay-notice" class="demo-notice" role="status" tabindex="-1"><strong>Demo only.</strong> No payment was requested or taken, and nothing was sent or saved. Sampson Family Law is a fictional firm created for a law school course.</div></div></div></section>
+<section class="s cream"><div class="narrow reveal"><div class="s-head center"><span class="eyebrow">Payment FAQ</span><h2>Questions about paying</h2></div><div class="faq">
+<details><summary>What is a trust account, and why does my retainer go there?</summary><p>Lawyers must keep money that belongs to clients, such as an unearned retainer, separate from the firm's own money, usually in a client trust (IOLTA) account. Funds move to the firm only as work is performed and billed.</p></details>
+<details><summary>Will I get a receipt?</summary><p>A real firm would email an itemized receipt showing the invoice, amount, method, and remaining balance. Your monthly statement would also list every payment.</p></details>
+<details><summary>Can I pay part of an invoice?</summary><p>Most firms accept partial payments or a payment plan. Ask your attorney before paying.</p></details>
+<details><summary>Is it safe to pay with a payment app?</summary><p>Only pay handles listed on your firm's official invoice, and confirm by phone if anything looks different. Payment-app transfers are often hard to reverse. On this demonstration site, every handle is fictional; do not send money.</p></details>
+<details><summary>Who do I call with billing questions?</summary><p>A real firm's billing office would help. This firm and its number ({PHONE}) are fictional.</p></details></div></div></section>
+<section class="s"><div class="narrow"><p class="fine"><strong>Fine print.</strong> This page is part of a fictional law firm website built for a law school course. No payment can be made here. The Cash App, Venmo, and Strike handles are invented and are not connected to any real account; the QR codes open a demonstration page on this site and never open a payment app. Cash App, Venmo, and Strike are trademarks of their respective owners, are named only to illustrate a typical payments page, and are not affiliated with or endorsing this project. Badges are illustrative and are not certifications.</p></div></section>""","payments")
+DEMO_NAMES={"cashapp":"Cash App","venmo":"Venmo","strike":"Strike"}
+pages["payment-demo.html"]=("Payment Demo",f"""<section class="demo-screen"><div class="receipt" id="receipt">
+<div class="r-check" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>
+<p class="r-method" id="r-method">Payment</p><h1 class="r-title">Thanks for scanning!</h1><p class="r-to">Sampson Family Law <span>(fictional)</span></p>
+<div class="r-big" role="alert"><strong>Demonstration only.</strong> No payment was requested or taken. Sampson Family Law is a fictional firm created for a law school course.</div>
+<figure class="tater"><img src="img/people/tater-receptionist.jpg" alt="Tater the bulldog at the front desk"><figcaption>Tater, Receptionist, says thanks for scanning.</figcaption></figure>
+<dl class="r-rows"><div><dt>Amount</dt><dd>$0.00</dd></div><div><dt>Status</dt><dd>Nothing charged</dd></div><div><dt>Method</dt><dd id="r-m2">Demo QR</dd></div></dl>
+<a class="btn btn-navy" href="payments.html" style="width:100%;justify-content:center">Back to payments page</a>
+<p class="fine" style="margin-top:14px">This page never opens a payment app and collects no data. Payment app names are trademarks of their owners, who are not affiliated with this project.</p></div></section>
+<script>(function(){{var n={json.dumps(DEMO_NAMES)};var m=new URLSearchParams(location.search).get("method");var t=n[m]||"Demo QR";document.getElementById("r-method").textContent=t+" · demo";document.getElementById("r-m2").textContent=t+" (demo)";if(n[m])document.getElementById("receipt").classList.add("m-"+m)}})();</script>""","")
 
 # ---------- BUILD LOG
 def md2html(md):
