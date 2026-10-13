@@ -163,7 +163,7 @@ faqs=[("Do I need a will if I don't own much?","A will also names guardians and 
 ]
 
 # ---------------- Characters. All fictional characters played by the owner's family and friends (photos used with permission).
-# Each gallery item: (image path under img/, alt text, caption). STORY lists are placeholders Hunter will expand.
+# Each gallery item: (image path under img/, alt text, caption). STORY lists are placeholders Ben will expand.
 PEOPLE=[
 dict(slug="ben-sampson",kind="staff",name="Ben Sampson",role="Founding Attorney",
  gallery=[("people/team-courtroom.jpg","Ben Sampson and Libby Sampson with Tater the bulldog in a courtroom","With Libby and Tater at the Oklahoma Court of Civil Appeals."),("people/family-behind-firm.jpg","Ben and Libby outdoors with Tater","The family behind Sampson Family Law."),("people/before-mediation.jpg","Ben and Libby staging a mock argument in a greenhouse","Before mediation."),("people/harper-family.jpg","Ben with the Harper family at a picnic table","With the Harper family.")],
