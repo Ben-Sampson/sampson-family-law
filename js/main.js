@@ -25,3 +25,15 @@ $$('[data-count]').forEach(el=>{const end=+el.dataset.count;let s=null;const run
 const f=$('#demo-form');if(f)f.addEventListener('submit',e=>{e.preventDefault();f.reset();const n=$('#demo-notice');n.classList.add('show');n.focus()});
 const y=$('#yr');if(y)y.textContent=new Date().getFullYear();
 })();
+// character galleries: crossfade + Ken Burns (CSS), ~5s/slide, pause on hover/focus/button, reduced motion = no autoplay
+(()=>{document.querySelectorAll('.gallery').forEach(g=>{const sl=[...g.querySelectorAll('.g-slide')];if(sl.length<2)return;
+ const dots=g.querySelector('.dots'),pb=g.querySelector('.g-pause');let i=0,t,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,hover=false;
+ sl.forEach((s,k)=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-label','Show photo '+(k+1)+' of '+sl.length);b.addEventListener('click',()=>go(k));dots.appendChild(b)});
+ function go(n){i=(n+sl.length)%sl.length;sl.forEach((s,k)=>{s.classList.toggle('active',k===i);s.setAttribute('aria-hidden',k!==i)});[...dots.children].forEach((b,k)=>b.setAttribute('aria-selected',k===i));arm()}
+ function arm(){clearTimeout(t);if(!paused&&!hover)t=setTimeout(()=>go(i+1),5000)}
+ function setP(v){paused=v;pb.textContent=v?'▶':'❚❚';pb.setAttribute('aria-label',v?'Play slideshow':'Pause slideshow');arm()}
+ g.querySelector('.prev').addEventListener('click',()=>go(i-1));g.querySelector('.next').addEventListener('click',()=>go(i+1));pb.addEventListener('click',()=>setP(!paused));
+ g.addEventListener('mouseenter',()=>{hover=true;clearTimeout(t)});g.addEventListener('mouseleave',()=>{hover=false;arm()});
+ g.addEventListener('focusin',()=>{hover=true;clearTimeout(t)});g.addEventListener('focusout',()=>{hover=false;arm()});
+ g.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(i-1);if(e.key==='ArrowRight')go(i+1)});
+ setP(paused);go(0)})})();

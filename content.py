@@ -54,7 +54,7 @@ faqs=[("Can parents agree to no child support?","Courts generally review support
 ("Does shared parenting time reduce support?","Oklahoma's guidelines include a shared parenting adjustment when a parent has a substantial number of overnights, which can affect the amount."),
 ("What if I lose my job?","Contact an attorney or the state program promptly. A modification generally does not reach back before the request was filed."),
 ("How long does child support last?","Generally until the child turns eighteen, or longer in some circumstances such as a child still regularly attending high school, subject to statutory limits.")]),
-dict(slug="mediation",name="Mediation",img="gathering-place.jpg",
+dict(slug="mediation",name="Mediation",img="bg/twilight.jpg",
 card="Structured, confidential negotiation that helps families resolve parenting and property issues without a courtroom battle.",
 tagline="A calmer, more private way to reach agreements your family can live with.",
 sections=[("What mediation is, and is not",[
@@ -90,8 +90,8 @@ faqs=[("Do unmarried fathers have custody rights?","Parentage generally must be 
 ("Are prenuptial agreements enforceable in Oklahoma?","They can be, especially when entered voluntarily with fair disclosure. Courts look carefully at how the agreement was made."),
 ("What is the difference between guardianship and adoption?","Guardianship grants a caregiver legal authority without ending the parents' rights; adoption permanently creates a new legal parent-child relationship."),
 ("How quickly can I get a protective order?","Emergency ex parte orders may be issued quickly, with a full hearing scheduled later. If you are in danger, call 911.")]),
-dict(slug="criminal-law",name="Criminal Law",img="gavel.jpg",
-card="Representation where criminal and family matters intersect, including protective orders, domestic charges, and their effect on custody.",
+dict(slug="criminal-law",name="Criminal Defense & DUI",img="gavel.jpg",
+card="DUI and criminal defense, including where criminal and family matters intersect: protective orders, domestic charges, and custody.",
 tagline="Coordinated defense when a criminal matter overlaps with divorce, custody, or a protective order.",
 sections=[("Where criminal and family law meet",[
 "Family disputes and criminal charges often collide. An arrest during a domestic argument, a protective order filed alongside a divorce, or allegations raised in a custody dispute can create parallel cases in different courts with different rules, deadlines, and standards of proof.",
@@ -100,57 +100,14 @@ sections=[("Where criminal and family law meet",[
 "The matters that most often overlap with family cases include domestic assault and battery charges, violations of protective orders, and child endangerment allegations. Each carries potential consequences beyond the criminal sentence, including effects on firearm rights, employment, and parenting time.",
 "Protective orders under Oklahoma's Protection from Domestic Abuse Act are civil, but violating one can be a crime. Anyone served with an order should read it carefully and follow it exactly while the case proceeds."]),
 ("Our focus",[
-"In this fictional practice, criminal work is limited to matters connected to family cases. For unrelated criminal defense, we would refer clients to experienced criminal defense counsel. Anyone facing charges should speak with a licensed criminal defense attorney promptly; public defenders are available for those who qualify."])],
+"In this fictional practice, criminal work covers DUI defense and matters connected to family cases. A first DUI arrest in Oklahoma can involve two tracks at once: the criminal case and a separate driver's license matter with its own short deadlines. Anyone facing charges should speak with a licensed criminal defense attorney promptly; public defenders are available for those who qualify."])],
 pull="When two courts are looking at the same family, one coordinated strategy matters more than two separate ones.",
 steps=[("Immediate review","We review charges, orders, and upcoming dates in every related case."),("Coordinate counsel","We align strategy with criminal defense counsel where appropriate."),("Protect your rights","We prepare for hearings with attention to statements and evidence across cases."),("Plan ahead","We address how outcomes may affect custody, support, and future orders.")],
 faqs=[("Should I talk to the police about a family dispute?","You have the right to remain silent and to consult a lawyer. Speak with an attorney before giving statements about pending matters."),
 ("Does a protective order affect custody?","It can. Protective orders may include temporary custody and contact provisions and can be considered in later custody decisions."),
 ("Can a criminal charge be used against me in divorce?","Conduct and charges can be relevant, especially to custody. Coordinated advice helps avoid unintended consequences."),
-("Do you handle all criminal cases?","No. In this demonstration, criminal work is limited to matters overlapping with family law.")]),
+("Do you handle DUI cases?","Yes, in this demonstration. Deadlines on the license side can be short, so it is worth talking to counsel quickly.")]),
 ]
-
-TESTIMONIALS=[
-("Claire explained every step before it happened. For the first time in months, I slept through the night knowing someone had a plan.","Parent, custody modification (fictional)"),
-("We came in angry and left with a parenting plan we both signed. I did not think that was possible.","Former spouse, mediated divorce (fictional)"),
-("She caught a retirement account issue in our settlement that would have cost me years of savings. Calm, sharp, and kind.","Client, divorce with property division (fictional)"),
-("The team returned every call the same day. When you are scared about your kids, that matters more than anything.","Father, paternity case (fictional)"),
-("No surprises on the bill, no confusing jargon. Just honest advice and steady support from start to finish.","Client, child support review (fictional)"),
-]
-
-STORIES=[("Resolving custody through mediation","A parent seeking a stable parenting plan worked through mediation to create a schedule built around the child's school and activities, reducing courtroom conflict."),
-("Navigating divorce and property","Clear documentation and steady guidance helped a client understand their options during a divorce involving shared property and financial accounts."),
-("Catching up on child support paperwork","A parent unsure how support was calculated was pointed to the state's official child support services program and organized their income records before a hearing.")]
-
-CREDS=[("Mediation Training","Fictional 40-hour program"),("Client Service Pledge","Fictional firm standard"),("Community Volunteer","Fictional pro bono clinic")]
-
-TEAM=[("Claire M. Sampson","Founding Attorney","Leads every case personally, with a focus on mediation and complex property division.","#0a2540"),
-("Daniel R. Okafor","Associate Attorney","Handles custody hearings and child support enforcement with a calm, prepared courtroom style.","#123a66"),
-("Maria L. Treviño","Senior Paralegal","Keeps cases organized, financial disclosures complete, and clients updated in English and Spanish.","#1d4b7a"),
-("Jordan T. Whitfield","Client Coordinator","The friendly first voice clients hear, scheduling consultations and guiding new clients through intake.","#2b5d8c")]
-
-def avatar(name,color):
-    ini="".join(w[0] for w in name.replace(".","").split() if len(w)>1)[:2]
-    return f'<svg viewBox="0 0 120 120" role="img" aria-label="Monogram avatar for {name} (fictional)"><rect width="120" height="120" fill="{color}"/><circle cx="60" cy="60" r="46" fill="none" stroke="#c9a227" stroke-width="1"/><text x="60" y="73" text-anchor="middle" font-family="Georgia,serif" font-size="38" fill="#e0c063">{ini}</text></svg>'
-
-PORTRAIT='''<svg viewBox="0 0 400 500" role="img" aria-label="Illustrated portrait of Claire M. Sampson, a fictional attorney"><defs><linearGradient id="bgp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b4a7c"/><stop offset="1" stop-color="#0a2540"/></linearGradient><linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c3a5"/><stop offset="1" stop-color="#cf9f7f"/></linearGradient><linearGradient id="hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3326"/><stop offset="1" stop-color="#2e1f17"/></linearGradient></defs>
-<rect width="400" height="500" fill="url(#bgp)"/><circle cx="200" cy="200" r="150" fill="#c9a227" opacity=".08"/><path d="M60 60h280" stroke="#c9a227" stroke-width="1" opacity=".3"/>
-<path d="M118 250c-14-90 22-160 86-162 66-2 100 64 84 160-6 40-14 78-6 112H124c8-36 0-72-6-110z" fill="url(#hair)"/>
-<path d="M60 500c6-74 46-112 104-128l36 30 36-30c58 16 98 54 104 128z" fill="#0f2c4d"/>
-<path d="M164 372l36 46 36-46-10-14h-52z" fill="#f4f1ea"/><path d="M164 372l-30 128h40l26-82zM236 372l30 128h-40l-26-82z" fill="#16385f"/>
-<rect x="178" y="300" width="44" height="66" rx="18" fill="url(#skin)"/>
-<ellipse cx="200" cy="222" rx="66" ry="84" fill="url(#skin)"/>
-<path d="M134 214c4-70 40-104 82-100 44 4 60 46 54 96-26-14-44-40-50-66-22 36-52 58-86 70z" fill="url(#hair)"/>
-<g fill="#3a2a22"><ellipse cx="176" cy="226" rx="6" ry="4.5"/><ellipse cx="226" cy="226" rx="6" ry="4.5"/></g>
-<path d="M164 210q12-8 24-2M214 208q12-6 24 2" stroke="#3a2a22" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M200 232q-4 18 2 24" stroke="#b5866a" stroke-width="2" fill="none"/><path d="M182 274q18 12 38 0" stroke="#9c5a4e" stroke-width="4" fill="none" stroke-linecap="round"/>
-<circle cx="200" cy="420" r="5" fill="#c9a227"/><text x="380" y="488" text-anchor="end" font-family="sans-serif" font-size="11" fill="#8fa3b8">Illustration · fictional character</text></svg>'''
-
-BIO='''<span class="eyebrow">Biography</span><h2>Steady advocacy, grounded in Tulsa</h2>
-<p>Claire Sampson grew up in midtown Tulsa, the daughter of a schoolteacher and a small-business owner. In the story of this firm, she watched close family friends spend years and most of their savings in a bitter divorce, and decided early that families deserved a better way through.</p>
-<p>After earning an economics degree and a law degree, Claire spent her early career at a mid-sized firm handling contested custody and complex property cases. She learned that thorough preparation was the surest path to fair settlements, and that clients make better decisions when they truly understand their options.</p>
-<p>She founded Sampson Family Law to build a practice around those lessons: a small caseload, direct attorney access, written plans and budgets, and a mediation-first philosophy backed by courtroom readiness. Her economics background makes her especially attentive to retirement accounts, business valuations, and the long-term tax consequences of settlements.</p>
-<h2>Approach</h2><ul class="checks"><li>Every client receives a written roadmap after the first meeting</li><li>Agreement where it is safe and realistic; trial preparation where it is not</li><li>Parenting plans built around the child's actual routine</li><li>Financial analysis that looks five years ahead, not just to the decree</li></ul>
-<h2>Outside the office</h2><p>Claire volunteers with a (fictional) Saturday legal information clinic, coaches youth soccer, and can usually be found on weekends walking the trails along the Arkansas River.</p>'''
 
 POSTS=[
 dict(slug="preparing-for-a-divorce-consultation",title="Preparing for Your First Divorce Consultation",cat="Divorce",read=5,img="signing.jpg",
@@ -177,4 +134,79 @@ body='''<p>Holidays magnify everything about co-parenting: the logistics, the em
 <h2>Communicate like colleagues</h2><p>Keep messages brief, factual, and polite. Co-parenting apps can help by keeping a clear record and reducing the temptation to relitigate old arguments.</p>
 <h2>Know when to get help</h2><p>If the other parent repeatedly ignores the schedule, or if there are safety concerns, document what happens and talk to an attorney about enforcement or modification options.</p>
 <blockquote>The best holiday gift for a child of separated parents is permission to enjoy both homes.</blockquote>'''),
+]
+
+# ---------------- New practice areas (general information, fictional firm)
+AREAS+=[
+dict(slug="personal-injury",name="Personal Injury",img="bg/golf-oceanfront.jpg",
+card="Car wrecks and other injuries: dealing with insurers, medical bills, and lost work so you can focus on recovering.",
+tagline="Steady help with insurers, medical bills, and lost income after an injury.",
+sections=[("After a wreck or injury",["The weeks after an injury are often the hardest time to deal with paperwork. Medical appointments, missed work, and calls from adjusters arrive all at once. Our role is to take that weight off: gather records, communicate with insurers, and make sure the full cost of the injury is understood before anything is signed.","Oklahoma generally applies a two-year statute of limitations to personal injury claims, and Oklahoma follows a modified comparative negligence rule. Both can significantly affect a claim, which is why early advice matters."]),
+("What a claim can include",["A claim may cover medical expenses, lost wages, reduced earning capacity, and pain and suffering. Documentation is what turns those categories into numbers an insurer must take seriously."])],
+pull="Recovery comes first. The paperwork can wait for us.",
+steps=[("Listen","We learn what happened and how the injury affects your work and family."),("Document","We collect medical records, bills, and wage information."),("Negotiate","We present the claim to the insurer and push back on low offers."),("Resolve","We settle where fair and prepare to file suit where not.")],
+faqs=[("How long do I have to file?","Generally two years in Oklahoma for most personal injury claims, with exceptions. Ask early."),("Should I talk to the other driver's insurer?","It is usually wise to speak with counsel before giving a recorded statement.")]),
+dict(slug="medical-malpractice",name="Medical Malpractice",img="law-books.jpg",
+card="Missed diagnoses and medical errors, investigated carefully with qualified medical experts.",
+tagline="Careful investigation, qualified experts, and patience when medical care goes wrong.",
+sections=[("When care falls short",["Medical malpractice cases ask whether a provider fell below the accepted standard of care and whether that caused harm. These cases depend heavily on medical records and expert review, and they are typically defended vigorously.","A missed or delayed diagnosis is one of the most common types of claim. The central question is often what a timely diagnosis would have changed."])],
+pull="Holding a provider accountable starts with understanding exactly what happened.",
+steps=[("Records","We obtain the complete medical record."),("Expert review","Qualified physicians review the care provided."),("Claim","We present the claim and negotiate with the provider's insurer."),("Trial readiness","We prepare every case as if it will be tried.")],
+faqs=[("Do I need an expert?","Almost always. Malpractice claims generally require expert testimony on the standard of care."),("Is there a deadline?","Yes. Deadlines apply and can be complicated; talk to counsel promptly.")]),
+dict(slug="wills-estate-planning",name="Wills & Estate Planning",img="bg/beach-palms.jpg",
+card="Simple wills, powers of attorney, and planning for the people (and pets) who depend on you.",
+tagline="Plain, practical planning so your family knows exactly what you wanted.",
+sections=[("Planning without the complexity",["For most families, a solid plan is a will, a durable power of attorney, and a health care directive. Done well, these documents are short, clear, and easy to update.","Oklahoma law also allows pet trusts, so a plan can provide for an animal's care and name who will look after them."])],
+pull="A good plan is one your family can actually follow.",
+steps=[("Conversation","We talk through your family, property, and wishes."),("Draft","We prepare plain-language documents."),("Sign","We supervise proper signing and witnessing."),("Review","We suggest a check-in after major life changes.")],
+faqs=[("Do I need a will if I don't own much?","A will also names guardians and decision-makers, which matters regardless of the size of an estate."),("Can I provide for my pet?","Yes. Oklahoma recognizes trusts for the care of animals.")]),
+]
+
+# ---------------- Characters. All fictional characters played by the owner's family and friends (photos used with permission).
+# Each gallery item: (image path under img/, alt text, caption). STORY lists are placeholders Hunter will expand.
+PEOPLE=[
+dict(slug="hunter-sampson",kind="staff",name="Hunter Sampson",role="Founding Attorney",
+ gallery=[("people/team-courtroom.jpg","Hunter Sampson and Libby Sampson with Tater the bulldog in a courtroom","With Libby and Tater at the Oklahoma Court of Civil Appeals."),("people/family-behind-firm.jpg","Hunter and Libby outdoors with Tater","The family behind Sampson Family Law."),("people/before-mediation.jpg","Hunter and Libby staging a mock argument in a greenhouse","Before mediation."),("people/harper-family.jpg","Hunter with the Harper family at a picnic table","With the Harper family.")],
+ summary="Hunter founded Sampson Family Law to give Tulsa families direct access to an attorney who returns calls and explains things plainly.",
+ bio=["Hunter founded the firm in Tulsa with a simple idea: clients should know their attorney, understand their options, and never be surprised by a bill.","His practice spans family law, personal injury, and estate planning. He handles most first consultations himself.","[Placeholder: fuller biography to come.]"],
+ facts=[("Focus","Family law, personal injury, estate planning"),("Office","Tulsa (fictional)")],areas=["family-law","personal-injury","wills-estate-planning"]),
+dict(slug="libby-sampson",kind="staff",name="Libby Sampson",role="Senior Trial Attorney",
+ gallery=[("people/libby-sampson.jpg","Libby Sampson in a black suit in front of law library shelves","Libby Sampson, senior trial attorney."),("people/libby-sampson-studio.jpg","Libby Sampson in a black suit against a navy studio backdrop",""),("people/libby-home-office.jpg","Libby Sampson in a cream blouse at home",""),("people/team-courtroom.jpg","Libby with Hunter and Tater in a courtroom","At the Oklahoma Court of Civil Appeals."),("people/before-mediation.jpg","Libby and Hunter staging a mock argument","Before mediation."),("people/family-behind-firm.jpg","Libby with Hunter and Tater outdoors","")],
+ summary="Libby leads the firm's trial work. Opposing counsel know her as thoroughly prepared and very hard to rattle.",
+ bio=["Libby is the firm's senior trial attorney. She prepares every case as though it will be tried, which is often why it does not need to be.","She is highly respected by colleagues and judges for her preparation, her cross-examination, and her calm in the courtroom.","[Placeholder: fuller biography to come.]"],
+ facts=[("Focus","Trial work, contested custody, personal injury, medical malpractice"),("Known for","Preparation")],areas=["child-custody","personal-injury","medical-malpractice"]),
+dict(slug="jane",kind="staff",name="Jane",role="Paralegal",
+ gallery=[("people/jane-headshot.jpg","Jane, smiling, in front of library shelves","Jane, paralegal."),("people/jane.jpg","Jane in a denim top at a cafe table","")],
+ summary="Jane keeps every file organized and every client informed. If you have called the firm, you have probably spoken with her.",
+ bio=["Jane manages case files, deadlines, and client updates for the whole team.","[Placeholder: fuller biography to come.]"],
+ facts=[("Role","Paralegal"),("Handles","Filings, records, client updates")],areas=[]),
+dict(slug="tater",kind="staff",name="Tater",role="Receptionist",
+ gallery=[("people/tater-receptionist.jpg","Tater the bulldog sitting in a green Adirondack chair","Tater, receptionist."),("people/team-courtroom.jpg","Tater with Hunter and Libby in a courtroom",""),("people/tater-after.jpg","Tater the bulldog with a ball in the grass",""),("people/family-behind-firm.jpg","Tater with Hunter and Libby outdoors","")],
+ summary="Tater greets every client at the front desk. He is also a former client.",
+ bio=["Tater has worked the front desk since the firm opened. He is calm under pressure and good with nervous clients.","After an injury earlier this year he became a client himself. <a href=\"tater-case.html\">Read his story.</a>"],
+ facts=[("Role","Receptionist"),("Breed","English bulldog")],areas=[]),
+dict(slug="bart",kind="client",name="Bart K.",place="Caddie, Tulsa",area="personal-injury",
+ gallery=[("people/bart-and-player.jpg","Bart in a white caddie jumpsuit standing beside a golfer on a course","Bart (right) back on the course with the player."),("people/barts-support-group.jpg","A group of nine golfers posing on a course","Bart's support group.")],
+ quote="After my car wreck on I-44, I couldn't work a full round for months. Sampson Family Law handled the insurance company and my medical bills, and got me back on the course doing what I love.",
+ story=["Bart was rear-ended on I-44 on his way to work. The injuries kept him off the course for most of a season.","[Placeholder: fuller story to come.]"]),
+dict(slug="megan",kind="client",name="Megan T.",place="Broken Arrow",area="medical-malpractice",
+ gallery=[("people/megan.jpg","Megan smiling outdoors in a striped shirt","Megan T., Broken Arrow."),("bg/beach-hero.jpg","Palm trees and blue ocean","")],
+ quote="When my diagnosis was missed for almost a year, I didn't know where to turn. Sampson Family Law found the right experts, held the hospital accountable, and treated me like a person the whole way through. I finally have my life back.",
+ story=["Megan's symptoms were documented at several visits before anyone ordered the right test.","[Placeholder: fuller story to come.]"]),
+dict(slug="kyle",kind="client",name="Kyle D.",place="Tulsa",area="criminal-law",
+ gallery=[("people/kyle.jpg","Kyle in a red polo looking at the camera","Kyle D., Tulsa."),("bg/sunset.jpg","Sunset over the ocean","")],
+ quote="I made a mistake and was scared about what came next. Sampson Family Law walked me through every step of my case and helped me move forward.",
+ story=["Kyle came in the morning after a DUI arrest with a stack of paperwork and a lot of questions.","[Placeholder: fuller story to come.]"]),
+dict(slug="ron",kind="client",name="Ron P.",place="Sand Springs",area="wills-estate-planning",
+ gallery=[("people/ron-and-daisy.jpg","Ron sitting in a recliner with his small white dog Daisy","Ron and Daisy."),("bg/beach-palms.jpg","Palm trees on a beach","")],
+ quote="I wanted to make sure my family, and my little Daisy, would be taken care of. Sampson Family Law made my will simple and gave me real peace of mind.",
+ story=["Ron wanted a simple will that also made arrangements for Daisy.","[Placeholder: fuller story to come.]"]),
+dict(slug="harper-family",kind="client",name="The Harper Family",place="Jenks",area="family-law",
+ gallery=[("people/harper-family.jpg","A family of four gathered at an outdoor picnic table","The Harper family, Jenks."),("bg/twilight.jpg","Twilight over the ocean","")],
+ quote="Going through a family legal matter is stressful no matter what. Sampson Family Law was patient, clear, and always kept our kids first. We're grateful for how they handled everything.",
+ story=["The Harpers came to the firm with a family matter that needed to be handled carefully for the children's sake.","[Placeholder: fuller story to come.]"]),
+dict(slug="tater-case",kind="client",name="Tater",place="Receptionist",area="personal-injury",
+ gallery=[("people/tater-before.jpg","Tater the bulldog in a car wearing a harness labeled TATER, looking sideways","Before."),("people/tater-recovering.jpg","Tater resting on a bed with a wrapped leg","Recovering."),("people/tater-after.jpg","Tater in the grass with a ball","After.")],
+ quote="After my injury I couldn't do much but nap. Sampson Family Law handled everything while I recovered. Now I'm back at the front desk.",
+ story=["Tater injured his leg and spent several weeks recovering at home.","[Placeholder: fuller story to come.]"]),
 ]
