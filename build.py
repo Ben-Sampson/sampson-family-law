@@ -198,11 +198,11 @@ for p in PEOPLE:
         title=f"{p['name']}, {p['role']}"
     else:
         body=f'''<section class="person-hero"><div class="container ph-grid"><div class="ph-text"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="../testimonials.html">Client Stories</a> / {p["name"]}</nav>
-<span class="eyebrow">{AREA_NAME[p["area"]]}</span><h1>{p["name"]}</h1><p class="role-line">{p["place"]}</p>
+<span class="eyebrow">{p.get("area_label") or AREA_NAME[p["area"]]}</span><h1>{p["name"]}</h1><p class="role-line">{p["place"]}</p>
 <blockquote class="quote">{p["quote"]}</blockquote></div>{gallery(p)}</div></section>
 <section class="s"><div class="container layout"><article class="prose"><h2>The story</h2>{"".join(f"<p>{x}</p>" for x in p["story"])}
 <p class="fine">Fictional client and fictional story, played by a member of the site owner's family or circle of friends for a class demonstration. Not a real case or result. Past results do not guarantee future outcomes.</p></article>
-<aside class="side"><div class="side-box"><h3>Practice area</h3><ul class="side-nav"><li><a href="../practice-areas/{p["area"]}.html">{AREA_NAME[p["area"]]}<span>→</span></a></li></ul></div><div class="side-box"><h3>More stories</h3><ul class="side-nav">{"".join(f'<li><a href="{x["slug"]}.html">{x["name"]}<span>→</span></a></li>' for x in CLIENTS if x is not p)}</ul></div></aside></div></section>{cta(r)}'''
+<aside class="side"><div class="side-box"><h3>Practice area</h3><ul class="side-nav"><li><a href="../practice-areas/{p["area"]}.html">{p.get("area_label") or AREA_NAME[p["area"]]}<span>→</span></a></li></ul></div><div class="side-box"><h3>More stories</h3><ul class="side-nav">{"".join(f'<li><a href="{x["slug"]}.html">{x["name"]}<span>→</span></a></li>' for x in CLIENTS if x is not p)}</ul></div></aside></div></section>{cta(r)}'''
         title=f"{p['name']}, Client Story"
     pages[f"people/{p['slug']}.html"]=(title,body,"")
 
@@ -224,7 +224,7 @@ pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A small T
 <li><strong>Not present:</strong> any bar number, license, real award, real review, or real intake system. (The contact form emails the student presenter for a live class demo; please don't send sensitive information.)</li></ul></div></section>{cta()}''',"")
 
 pages["testimonials.html"]=("Client Stories",hero("Client Stories","Fictional stories from fictional clients, written for a class demonstration.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Client Stories"],"bg/beach-palms.jpg")+f'''
-<section class="s cream"><div class="container"><div class="stories">{"".join(f'<article class="story reveal"><a href="people/{p["slug"]}.html" tabindex="-1" aria-hidden="true"><img src="img/{p["gallery"][0][0]}" alt="" loading="lazy"></a><div><span class="eyebrow">{AREA_NAME[p["area"]]}</span><blockquote>{p["quote"]}</blockquote><cite>{p["name"]}, {p["place"]}</cite><a class="more" href="people/{p["slug"]}.html">Read the story<span class="sr"> of {p["name"]}</span></a></div></article>' for p in CLIENTS)}</div>
+<section class="s cream"><div class="container"><div class="stories">{"".join(f'<article class="story reveal"><a href="people/{p["slug"]}.html" tabindex="-1" aria-hidden="true"><img src="img/{p["gallery"][0][0]}" alt="" loading="lazy"></a><div><span class="eyebrow">{p.get("area_label") or AREA_NAME[p["area"]]}</span><blockquote>{p["quote"]}</blockquote><cite>{p["name"]}, {p["place"]}</cite><a class="more" href="people/{p["slug"]}.html">Read the story<span class="sr"> of {p["name"]}</span></a></div></article>' for p in CLIENTS)}</div>
 <p class="fine" style="text-align:center;margin-top:30px">All clients, stories, and testimonials are fictional and do not describe real cases or results.</p></div></section>{cta()}''',"")
 
 # ---------- INSIGHTS
