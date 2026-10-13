@@ -108,7 +108,7 @@ section.s{padding:112px 0}.s.cream{background:var(--cream)}.s.navy{background:va
 .creds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:30px 0}
 .cred{border:1px solid var(--line);border-radius:var(--r);padding:20px;text-align:center;background:var(--cream)}
 .cred svg{width:54px;height:54px;margin:0 auto 10px}.cred b{display:block;font-family:var(--serif);color:var(--navy);font-weight:600}.cred span{font-size:.75rem;color:var(--muted)}
-.team{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;justify-content:center;max-width:960px;margin-left:auto;margin-right:auto}
 .member{text-align:center;background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:30px 20px;transition:.3s}.member:hover{box-shadow:var(--sh);transform:translateY(-4px)}
 .member .av{width:120px;height:120px;margin:0 auto 18px;border-radius:50%;overflow:hidden;border:3px solid var(--gold)}
 .member h3{font-size:1.15rem;margin-bottom:2px}.member .role{color:var(--gold-d);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.member p{color:var(--muted);font-size:.92rem;margin-top:12px}
@@ -199,7 +199,7 @@ footer .brand{color:#fff;margin-bottom:18px}footer .brand-sub{color:var(--gold-2
 /* v3: character pages, galleries, people grid */
 .photo-frame figcaption,.ph-cap{font-size:.85rem;color:var(--muted);margin-top:12px;font-style:italic;font-family:var(--serif)}
 .photo-frame::before{border-width:1px}
-.people{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;justify-content:center;max-width:960px;margin-left:auto;margin-right:auto}
 .person{display:block;text-decoration:none;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);transition:.3s}
 .person img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .8s}.person:hover img{transform:scale(1.04)}.person:hover{box-shadow:var(--sh2)}
 .pc-body{display:block;padding:18px 20px}.pc-body b{display:block;font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--navy)}.pc-body span{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d)}
