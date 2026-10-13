@@ -164,7 +164,7 @@ Citation-form note: Oklahoma's citation rule (Okla. Sup. Ct. R. 1.200) calls for
 
 ## Verification log
 
-**Verified statutes (text read on OSCN): 21**
+**Verified statutes (text read on OSCN): 23**
 §§ 101, 102, 107.1, 107.2 (current and Jan. 1, 2027 versions), 109, 112, 112.1A, 112.2, 112.3, 118, 118A, 118B, 118C, 118D, 118E, 118F, 118G, 118H, 118I, 119, 121, 134, 137. (The 107.2 versions are counted once.)
 
 **Verified cases (text read on OSCN or Justia, with cite and pinpoint ¶ confirmed): 8**
