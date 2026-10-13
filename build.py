@@ -1,107 +1,269 @@
-"""Generates the static pages with a shared header/banner/footer. Run: python3 build.py"""
-import html, re, pathlib
-AREAS=[("family-law","Family Law"),("mediation","Mediation"),("divorce","Divorce"),("child-custody","Child Custody"),("child-support","Child Support"),("criminal-law","Criminal Law")]
-FICTION='<span class="tag">Fictional example</span>'
-def shell(path,title,body):
+"""Generates every page from one shared template (header, top line, nav, footer, disclaimers).
+Run: python3 build.py   Content lives in content.py; credits come from img/credits.json."""
+import html, re, json, pathlib
+from content import *
+
+PHONE="(918) 555-0142"; TEL="+19185550142"
+ADDR1="1200 S. Fictional Avenue, Suite 555"; ADDR2="Tulsa, OK 74100"
+HOURS=[("Monday – Thursday","8:30 am – 5:30 pm"),("Friday","8:30 am – 4:00 pm"),("Saturday","By appointment"),("Sunday","Closed")]
+
+LOGO='''<svg viewBox="0 0 64 64" role="img" aria-label="Sampson Family Law monogram"><circle cx="32" cy="32" r="31" fill="#0a2540"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#c9a227" stroke-width="1.2"/><circle cx="32" cy="32" r="24" fill="none" stroke="#c9a227" stroke-width=".5" opacity=".7"/><text x="32" y="43" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="32" font-style="italic" fill="#e0c063">S</text><path d="M14 47h36" stroke="#c9a227" stroke-width=".8"/><text x="32" y="54" text-anchor="middle" font-family="Georgia,serif" font-size="5.2" letter-spacing="1.6" fill="#e0c063">FAMILY LAW</text><circle cx="32" cy="13" r="1.4" fill="#c9a227"/></svg>'''
+
+def ico(name):
+    P={"family":'<circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 21v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2M15 21v-1.5a3.5 3.5 0 0 1 3.5-3.5h0a3.5 3.5 0 0 1 3.5 3.5V21"/>',
+     "scale":'<path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/>',
+     "rings":'<circle cx="9" cy="14" r="6"/><circle cx="15" cy="10" r="6"/>',
+     "child":'<circle cx="12" cy="6" r="3"/><path d="M12 9v7M8 12h8M9 22l3-6 3 6"/>',
+     "dollar":'<path d="M12 2v20M17 6.5C16 5 14.3 4.5 12 4.5c-3 0-5 1.3-5 3.5 0 5 10 2.5 10 7.5 0 2.2-2 3.5-5 3.5-2.4 0-4.3-.7-5.2-2.3"/>',
+     "shield":'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+     "phone":'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+     "pin":'<path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+     "clock":'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+     "mail":'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'}
+    return f'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{P[name]}</svg>'
+
+AREA_ICON={"family-law":"family","mediation":"scale","divorce":"rings","child-custody":"child","child-support":"dollar","criminal-law":"shield"}
+
+def shell(path,title,body,desc="",current=""):
     r="../"*path.count("/")
-    pa="".join(f'<a href="{r}practice-areas/{s}.html">{n}</a>' for s,n in AREAS)
+    pa="".join(f'<a href="{r}practice-areas/{a["slug"]}.html">{a["name"]}</a>' for a in AREAS)
+    cur=lambda k:' aria-current="page"' if k==current else ''
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex"><title>{title} | Sampson Family Law (Student Project)</title>
+<meta name="robots" content="noindex, nofollow"><title>{title} | Sampson Family Law (Student Demonstration)</title>
+<meta name="description" content="{html.escape(desc or 'A fictional Tulsa family law firm website built as a law school course demonstration. Not a law firm.')}">
+<meta name="theme-color" content="#0a2540"><link rel="icon" href="{r}img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{r}css/styles.css"></head><body>
-<div class="student-banner" role="note">Student project for a law school class. Not a law firm. No legal advice.</div>
-<header><div class="container"><nav aria-label="Main">
-<a class="logo" href="{r}index.html">Sampson <span>Family Law</span></a>
-<button class="menu-toggle" aria-expanded="false" aria-label="Open menu">Menu</button>
-<ul>
-<li><a href="{r}index.html">Home</a></li>
-<li class="dropdown"><button aria-expanded="false">Practice Areas ▾</button><div class="dropdown-content"><a href="{r}practice-areas/index.html">All practice areas</a>{pa}</div></li>
-<li class="dropdown"><button aria-expanded="false">About ▾</button><div class="dropdown-content"><a href="{r}about.html">About the project</a><a href="{r}stories.html">Client stories (fictional)</a><a href="{r}build-log.html">Build log</a></div></li>
-<li><a href="{r}evidence.html">Evidence &amp; Resources</a></li>
-<li><a href="{r}contact.html">Contact (demo)</a></li>
-</ul></nav></div></header>
-<main>{body}</main>
-<footer><div class="container"><p>© 2026 Sampson Family Law, a fictional firm created as a student project for a law school AI and the Law class.</p>
-<p>Not a law firm. Not a licensed attorney. Nothing here is legal advice. No attorney-client relationship is created by using this site.
-If you need legal help in Oklahoma, see <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a>.</p></div></footer>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topline" role="note"><div class="container"><span>Demonstration project for a law school course; not a law firm. <a href="{r}about.html#disclaimer">Learn more</a></span><span class="tl-right"><span>{ADDR2} (fictional)</span><span>Mon–Fri 8:30–5:30</span></span></div></div>
+<header class="site-header"><div class="container nav">
+<a class="brand" href="{r}index.html" aria-label="Sampson Family Law, home">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
+<nav aria-label="Main"><button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+<ul class="menu" id="primary-menu">
+<li><a href="{r}index.html"{cur("home")}>Home</a></li>
+<li class="has-dd"><button aria-expanded="false" aria-haspopup="true">Practice Areas<span class="caret">▼</span></button><div class="dd"><a href="{r}practice-areas/index.html">All practice areas</a>{pa}</div></li>
+<li class="has-dd"><button aria-expanded="false" aria-haspopup="true">Our Firm<span class="caret">▼</span></button><div class="dd"><a href="{r}about.html">About the firm</a><a href="{r}attorney.html">Meet the attorney</a><a href="{r}team.html">Our team</a><a href="{r}testimonials.html">Client stories</a></div></li>
+<li><a href="{r}insights/index.html"{cur("insights")}>Insights</a></li>
+<li class="has-dd"><button aria-expanded="false" aria-haspopup="true">Resources<span class="caret">▼</span></button><div class="dd"><a href="{r}evidence.html">Evidence &amp; data</a><a href="{r}build-log.html">Build log</a><a href="{r}credits.html">Image credits</a></div></li>
+<li><a href="{r}contact.html"{cur("contact")}>Contact</a></li>
+<li class="nav-cta-li"><a class="btn nav-cta" href="{r}contact.html">Free Consultation</a></li>
+</ul></nav></div></header><div class="scrim" aria-hidden="true"></div>
+<main id="main">{body}</main>
+<footer class="site-footer"><div class="container"><div class="f-grid">
+<div><a class="brand" href="{r}index.html">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
+<p>Steady counsel for Oklahoma families in transition. A fictional firm, imagined and built for a law school course.</p></div>
+<div><h4>Practice Areas</h4><ul>{"".join(f'<li><a href="{r}practice-areas/{a["slug"]}.html">{a["name"]}</a></li>' for a in AREAS)}</ul></div>
+<div><h4>Explore</h4><ul><li><a href="{r}about.html">About the firm</a></li><li><a href="{r}attorney.html">Meet the attorney</a></li><li><a href="{r}team.html">Our team</a></li><li><a href="{r}testimonials.html">Client stories</a></li><li><a href="{r}insights/index.html">Insights</a></li><li><a href="{r}evidence.html">Evidence &amp; data</a></li><li><a href="{r}credits.html">Image credits</a></li><li><a href="{r}build-log.html">Build log</a></li></ul></div>
+<div><h4>Visit (fictional)</h4><ul><li>{ADDR1}<br>{ADDR2}</li><li><a href="tel:{TEL}">{PHONE}</a></li><li>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</li></ul><p style="margin-top:18px"><a class="btn nav-cta" href="{r}contact.html">Schedule a consultation</a></p></div>
+</div>
+<div class="f-legal">
+<p><strong>Demonstration project. Not a law firm.</strong> Sampson Family Law is a fictional firm created by a law student for a law school course on AI and the Law. It is not a real law firm and has no office, staff, or clients. Claire M. Sampson and every other person named on this site are fictional characters; portraits are illustrations, not photographs of real people. No one on this site is a licensed attorney, and the creator is not licensed to practice law in Oklahoma or any other jurisdiction.</p>
+<p><strong>No legal advice. No attorney-client relationship.</strong> Nothing on this site is legal advice, and using it does not create an attorney-client relationship. Statutes and procedures change; information here is general and may be incomplete or out of date. For help with a real legal matter in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p>
+<p><strong>Fictional details.</strong> The address, suite, phone number (555 numbers are reserved for fiction), hours, testimonials, client stories, team members, credentials, and badges are invented for the demonstration. They are not real reviews, awards, bar memberships, or certifications. The contact form sends nothing. Statistics on the <a href="{r}evidence.html">evidence page</a> are real and cited to their public sources. Photographs are free-licensed; see <a href="{r}credits.html">image credits</a>.</p>
+<div class="f-bottom"><span>© <span id="yr">2026</span> Sampson Family Law (fictional). Student demonstration project.</span><span>Built with AI agents · <a href="{r}build-log.html">See how</a></span></div>
+</div></div></footer>
+<button class="to-top" aria-label="Back to top">↑</button>
 <script src="{r}js/main.js"></script></body></html>
 '''
-def head(t,s): return f'<section class="page-head"><div class="container"><h1>{t}</h1><p>{s}</p></div></section>'
-DISC='<div class="disclaimer"><strong>Student class project only.</strong> Sampson Family Law is not a real law firm. The creator is a law student and is not licensed to practice law in Oklahoma or any other jurisdiction. Nothing on this site is legal advice. Do not rely on it for a real legal matter.</div>'
+
+def hero(title,sub,crumbs,img="philtower.jpg",r=""):
+    c=" <span aria-hidden='true'>/</span> ".join(crumbs)
+    return f'<section class="page-hero"><div class="bg" style="background-image:url({r}img/{img})"></div><div class="container"><nav class="crumbs" aria-label="Breadcrumb">{c}</nav><h1>{title}</h1><p>{sub}</p></div></section>'
+
+def cta(r="",title="Ready to talk through your next step?",text="Schedule a confidential consultation. We will listen first, explain your options in plain English, and help you choose a path that fits your family."):
+    return f'''<section class="cta"><div class="bg" style="background-image:url({r}img/hero-tulsa-skyline.jpg)"></div><div class="container on-dark reveal"><div><span class="eyebrow">Free initial consultation</span><h2>{title}</h2><p>{text}</p><p class="fine" style="margin-top:10px">Demonstration only: consultations, fees, and the firm itself are fictional.</p></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="{r}contact.html">Request a consultation</a><a class="btn btn-ghost" href="tel:{TEL}">{PHONE}</a></div></div></section>'''
+
+def carousel(r=""):
+    s="".join(f'<div class="slide" role="tabpanel" aria-roledescription="slide"><span class="quote-mark" aria-hidden="true">“</span><blockquote>{q}</blockquote><div class="stars" aria-label="5 out of 5 stars (fictional)">★★★★★</div><cite>— {w}</cite></div>' for q,w in TESTIMONIALS)
+    return f'''<section class="s navy" aria-labelledby="t-h"><div class="container on-dark"><div class="s-head center"><span class="eyebrow">Client stories</span><h2 id="t-h">Words from families we have guided</h2></div>
+<div class="carousel" aria-roledescription="carousel" aria-label="Client testimonials (fictional)"><div class="slides" aria-live="polite">{s}</div>
+<div class="c-ctrl"><button class="arrow prev" type="button" aria-label="Previous testimonial">←</button><div class="dots" role="tablist" aria-label="Choose testimonial"></div><button class="arrow next" type="button" aria-label="Next testimonial">→</button></div>
+<p class="fine" style="margin-top:28px">All testimonials are fictional, written for this demonstration, and do not describe real clients or results. Past results do not guarantee future outcomes.</p></div></div></section>'''
+
+def post_cards(r="",limit=3):
+    return '<div class="posts">'+"".join(f'''<article class="post reveal d{i%3}"><a class="thumb" href="{r}insights/{p["slug"]}.html" tabindex="-1" aria-hidden="true"><img src="{r}img/{p["img"]}" alt="" loading="lazy" width="800" height="500"></a><div class="body"><div class="meta">{p["cat"]} · {p["read"]} min read</div><h3><a href="{r}insights/{p["slug"]}.html">{p["title"]}</a></h3><p>{p["dek"]}</p><a class="more" style="margin-top:auto;font-weight:700;text-decoration:none" href="{r}insights/{p["slug"]}.html">Read article →</a></div></article>''' for i,p in enumerate(POSTS[:limit]))+'</div>'
+
+def area_cards(r="",img=False):
+    return '<div class="cards">'+"".join(f'''<article class="card reveal d{i%3}"><div class="ico">{ico(AREA_ICON[a["slug"]])}</div><h3>{a["name"]}</h3><p>{a["card"]}</p><a class="more" href="{r}practice-areas/{a["slug"]}.html">Learn more<span class="sr"> about {a["name"]}</span></a></article>''' for i,a in enumerate(AREAS))+'</div>'
+
+MAP='''<svg viewBox="0 0 600 380" role="img" aria-labelledby="mapt"><title id="mapt">Illustrative map of a fictional office location south of downtown Tulsa, near the Arkansas River. Not to scale.</title>
+<rect width="600" height="380" fill="#eef1f4"/><g fill="#e2e7ec"><rect x="30" y="30" width="110" height="70" rx="4"/><rect x="160" y="30" width="120" height="70" rx="4"/><rect x="300" y="30" width="110" height="70" rx="4"/><rect x="30" y="120" width="110" height="80" rx="4"/><rect x="160" y="120" width="120" height="80" rx="4"/><rect x="300" y="120" width="110" height="80" rx="4"/><rect x="30" y="220" width="110" height="70" rx="4"/><rect x="160" y="220" width="120" height="70" rx="4"/></g>
+<rect x="430" y="30" width="150" height="110" rx="6" fill="#dbe8d6"/><text x="505" y="90" text-anchor="middle" font-size="12" fill="#5d7a56" font-family="sans-serif">Park</text>
+<path d="M600 170 C 520 200, 470 260, 430 300 S 330 360, 250 380" fill="none" stroke="#b9d3e8" stroke-width="34"/><text x="470" y="300" font-size="12" fill="#5e86a8" font-family="sans-serif" transform="rotate(-38 470 300)">Arkansas River</text>
+<g stroke="#fff" stroke-width="9" fill="none"><path d="M0 110H600M0 210H440M150 0V380M290 0V330M420 0V250"/></g><path d="M0 110H600" stroke="#f4d77e" stroke-width="4"/>
+<g font-family="sans-serif" font-size="11" fill="#6b7785"><text x="40" y="106">W. Example St.</text><text x="295" y="20" transform="rotate(90 295 20)">S. Fictional Ave.</text><text x="70" y="70">Downtown</text></g>
+<g transform="translate(290 210)"><circle r="30" fill="#c9a227" opacity=".18"><animate attributeName="r" values="14;34;14" dur="3s" repeatCount="indefinite"/></circle><path d="M0 0c-12-16-18-24-18-32a18 18 0 0 1 36 0c0 8-6 16-18 32z" fill="#0a2540" transform="translate(0 -4)"/><circle cy="-36" r="6.5" fill="#e0c063"/></g>
+<rect x="316" y="228" width="230" height="46" rx="6" fill="#fff" stroke="#e1e5ea"/><text x="330" y="248" font-family="Georgia,serif" font-size="14" fill="#0a2540">Sampson Family Law</text><text x="330" y="265" font-family="sans-serif" font-size="11" fill="#6b7785">Suite 555 · fictional location</text>
+<text x="590" y="372" text-anchor="end" font-family="sans-serif" font-size="10" fill="#8a96a3">Illustration only, not to scale</text></svg>'''
+
+def contact_block(r=""):
+    hrs="".join(f"<tr><td>{d}</td><td>{h}</td></tr>" for d,h in HOURS)
+    return f'''<div class="info-block"><div class="info-item"><div class="ico">{ico("pin")}</div><div><b>Office (fictional)</b><span>{ADDR1}<br>{ADDR2}</span></div></div>
+<div class="info-item"><div class="ico">{ico("phone")}</div><div><b>Phone</b><a href="tel:{TEL}">{PHONE}</a> <span>(fictional 555 number)</span></div></div>
+<div class="info-item"><div class="ico">{ico("mail")}</div><div><b>Email</b><span>hello@sampson-law.example (placeholder; the .example domain cannot receive mail)</span></div></div>
+<div class="info-item"><div class="ico">{ico("clock")}</div><div style="flex:1"><b>Office hours</b><table class="hours">{hrs}</table></div></div></div>'''
+
 pages={}
-pages["index.html"]=("Home",f'''<section class="hero"><div class="container">
-<h1>Compassionate Guidance Through Life's Most Important Moments</h1>
-<p>A student-built model of a Tulsa family law website: divorce, custody, mediation, and more, presented evidence first.</p>
-<a href="contact.html" class="btn">Try the demo contact form</a></div></section>
-<div class="container">{DISC}</div>
-<section><div class="container"><h2>Practice areas (as a real firm might describe them)</h2><div class="grid">
-''' + "".join(f'<div class="card"><h3>{n}</h3><p><a href="practice-areas/{s}.html">Read the overview →</a></p></div>' for s,n in AREAS) + '''
-</div></div></section>
-<section class="alt"><div class="container"><h2>Evidence first</h2>
-<p>Instead of marketing claims, this project shows published public data with a link to every source. Two examples:</p>
-<div class="grid" style="margin-top:20px">
-<div class="card"><div class="stat">2.4 per 1,000</div><p>U.S. divorce rate, provisional 2023 (45 reporting states and D.C.).</p><p class="src">Source: <a href="https://www.cdc.gov/nchs/fastats/marriage-divorce.htm">CDC / NCHS FastStats</a></p></div>
-<div class="card"><div class="stat">$19.2B of $29.9B</div><p>Child support received vs. owed to U.S. custodial parents in 2022.</p><p class="src">Source: <a href="https://www2.census.gov/library/publications/2025/demo/p60-285.pdf">U.S. Census Bureau, P60-285</a></p></div>
-</div><p style="margin-top:20px"><a href="evidence.html">See all data and sources →</a></p></div></section>
-<section><div class="container"><h2>How this site was built</h2><p>AI agents turned a one-page draft into this multi-page site, and every step is logged. <a href="build-log.html">Read the build log →</a></p></div></section>''')
+r=""
+# ---------- HOME
+pages["index.html"]=("Tulsa Family Law Attorney",f'''
+<section class="hero"><div class="hero-bg" style="background-image:url(img/philtower.jpg)" role="img" aria-label="Historic office towers in downtown Tulsa"></div><div class="container on-dark">
+<span class="eyebrow">Tulsa family law · Fictional firm</span>
+<h1>Clear counsel when your <em>family's future</em> is on the line.</h1>
+<p class="lead">Divorce, custody, support, and mediation, handled with calm strategy and honest advice. We help Oklahoma parents and spouses protect what matters most and move forward with confidence.</p>
+<div class="hero-actions"><a class="btn" href="contact.html">Schedule a consultation</a><a class="btn btn-ghost" href="practice-areas/index.html">Explore practice areas</a></div>
+<div class="hero-meta"><div><strong>Plain-English</strong>advice at every step</div><div><strong>Flat-fee</strong>options for agreed matters</div><div><strong>Same-week</strong>consultations</div></div>
+<p class="fine" style="margin-top:22px">Fictional firm and fictional service claims, created for a law school demonstration.</p></div></section>
 
-AREA_BODY={
-"family-law":("Family Law","<p>Family law covers the legal relationships within a family: marriage and divorce, parentage, custody and visitation, child support, adoption, and protective orders. In Oklahoma, most of these rules are in Title 43 of the Oklahoma Statutes and are handled in district court.</p><p>A real firm page here would explain who the firm helps and how a first meeting works. This page stays general on purpose.</p>"),
-"mediation":("Mediation","<p>Mediation is a process where a neutral third party helps people reach their own agreement, often on a parenting plan or property division, without a judge deciding. It can reduce conflict and cost, but it is not right for every case, for example where there is a history of domestic violence.</p>"),
-"divorce":("Divorce","<p>Divorce ends a marriage and usually decides property, debts, support, and (if there are children) custody and child support. Cases range from uncontested agreements to fully contested trials.</p><p>For national context on how common divorce is, see the <a href=\"../evidence.html\">evidence page</a>.</p>"),
-"child-custody":("Child Custody","<p>Custody decisions focus on the best interests of the child. Courts look at factors such as each parent's relationship with the child, stability, and the child's needs. Parenting plans set out where a child lives and how time is shared.</p>"),
-"child-support":("Child Support","<p>Child support is money one parent pays toward a child's living costs. Oklahoma uses statewide guidelines, and Oklahoma Human Services runs the state's child support services program (<a href=\"https://oklahoma.gov/okdhs/services/child-support-services.html\">official site</a>).</p><p>National data on how much support is actually paid is on the <a href=\"../evidence.html\">evidence page</a>.</p>"),
-"criminal-law":("Criminal Law","<p>The original draft listed criminal defense, since family and criminal matters sometimes overlap (for example, protective orders alongside a custody case). It is kept here only as an overview; this project focuses on family law.</p>"),
-}
-for s,(n,b) in AREA_BODY.items():
-    pages[f"practice-areas/{s}.html"]=(n,head(n,"General educational overview, not legal advice.")+f'<section><div class="container">{DISC}{b}<p style="margin-top:20px"><a href="index.html">← All practice areas</a></p></div></section>')
-pages["practice-areas/index.html"]=("Practice Areas",head("Practice Areas","How a family law firm might organize its services.")+'<section><div class="container">'+DISC+'<div class="grid">'+"".join(f'<div class="card"><h3><a href="{s}.html">{n}</a></h3><p>{re.sub("<[^>]+>","",AREA_BODY[s][1])[:150]}…</p></div>' for s,n in AREAS)+'</div></div></section>')
+<section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">Welcome</span><h2>A family law practice built on listening first</h2>
+<p>When a marriage ends or a parenting arrangement stops working, people rarely need a lecture on the law. They need someone to slow things down, explain what is likely to happen next, and help them make good decisions while emotions run high.</p>
+<p>That is the practice Sampson Family Law imagines: a small Tulsa office where clients reach their attorney directly, receive a written plan after the first meeting, and are never surprised by a bill. We favor agreement where it is safe and realistic, and prepare every case as though it might be heard by a judge.</p>
+<ul class="checks"><li>Direct access to your attorney, not a call center</li><li>A written roadmap and budget after your first meeting</li><li>Mediation-first approach, courtroom-ready preparation</li></ul>
+<a class="btn btn-navy" href="attorney.html">Meet Claire Sampson</a></div>
+<div class="photo-frame reveal d2"><img src="img/law-books.jpg" alt="Rows of bound law reports on library shelves" width="720" height="900" loading="lazy"><div class="badge-float"><strong>Est. 2014*</strong>Serving Tulsa-area families<br><span class="fine" style="color:#8fa3b8">*Fictional founding date</span></div></div></div></section>
 
-pages["about.html"]=("About",head("About the Project","Why Sampson Family Law exists.")+f'''<section><div class="container">{DISC}
-<h2>A class project, not a practice</h2>
-<p>Sampson Family Law was created for a law school course on AI and the Law. It looks at how firms present themselves online and asks whether AI agents can build a site like that responsibly: with honest disclaimers, cited data, and nothing that could be mistaken for a real attorney.</p>
-<p>The design follows the look of many Tulsa-area firm websites (navy and gold, dropdown navigation, practice-area pages, client stories). The difference is that every claim of fact here links to a public source, and every story is labeled fictional.</p>
-<h2 style="margin-top:36px">What you will not find here</h2>
-<ul><li>No bar number, license number, or credentials. The creator is a student and is not licensed.</li><li>No outcome promises or success rates.</li><li>No way to send information to anyone. The contact form is a demo.</li></ul>
-<p style="margin-top:20px">Built by Hunter Briben with AI agents. See the <a href="build-log.html">build log</a>.</p></div></section>''')
+<section class="s cream"><div class="container"><div class="s-head center reveal"><span class="eyebrow">Practice areas</span><h2>Focused on the matters that shape families</h2><p>Every service below has its own page with a plain-English overview, a step-by-step process, and answers to common questions.</p></div>
+{area_cards()}<p style="text-align:center;margin-top:40px"><a class="btn btn-navy" href="practice-areas/index.html">View all practice areas</a></p></div></section>
 
-stories=[("Resolving Custody Through Mediation","A parent seeking a stable parenting plan worked through mediation to create a schedule built around the child's school and activities, reducing courtroom conflict."),
-("Navigating Divorce and Property","Clear documentation and steady guidance helped a client understand their options during a divorce involving shared property and financial accounts."),
-("Catching Up on Child Support Paperwork","A parent unsure how support was calculated was pointed to the state's official child support services program and organized their income records before a hearing.")]
-pages["stories.html"]=("Client Stories",head("Client Stories","All stories are fictional. No real clients, cases, or outcomes.")+'<section><div class="container">'+DISC+'<div class="grid">'+"".join(f'<div class="card">{FICTION}<h3>{t}</h3><p>{d}</p><p class="src"><em>Fictional story written for a class project. Any resemblance to real people or cases is coincidental.</em></p></div>' for t,d in stories)+'</div></div></section>')
+<section class="band" aria-label="Public statistics"><div class="container"><div class="grid4">
+<div><strong>2.4</strong><span>U.S. divorces per 1,000 people (2023, provisional)</span></div>
+<div><strong>672,502</strong><span>Divorces reported by 45 states + D.C. (2023)</span></div>
+<div><strong>41.0%</strong><span>Custodial parents with a support agreement (2022)</span></div>
+<div><strong>$19.2B</strong><span>Child support received of $29.9B due (2022)</span></div></div>
+<small>Real figures from CDC/NCHS FastStats and U.S. Census Bureau report P60-285. <a href="evidence.html" style="color:var(--gold-2)">See sources →</a></small></div></section>
 
-pages["evidence.html"]=("Evidence & Resources",head("Evidence &amp; Resources","Public data with links. If a number could not be verified, it was left out.")+f'''<section><div class="container">{DISC}
+<section class="s"><div class="container"><div class="s-head reveal"><span class="eyebrow">How we work</span><h2>A clear path from first call to final order</h2></div>
+<div class="steps"><div class="step reveal"><h3>Consultation</h3><p>We listen to your story, identify urgent issues, and outline realistic options.</p></div><div class="step reveal d1"><h3>Roadmap</h3><p>You receive a written plan with likely timelines, decisions ahead, and a fee estimate.</p></div><div class="step reveal d2"><h3>Resolution</h3><p>We negotiate or mediate where it makes sense and prepare thoroughly for court where it does not.</p></div><div class="step reveal d3"><h3>Moving forward</h3><p>We explain your final orders and help you plan for modifications or enforcement later.</p></div></div></div></section>
+
+<section class="s cream"><div class="container split"><div class="photo-frame reveal" style="order:2"><img src="img/family-beach.jpg" alt="Two people silhouetted walking along a beach at sunset" width="720" height="900" loading="lazy"></div>
+<div class="reveal d1"><span class="eyebrow">Meet your attorney</span><h2>Claire M. Sampson</h2><p style="font-family:var(--serif);font-size:1.25rem;color:var(--navy);font-style:italic">“The best outcome is usually the one a family can actually live with five years from now.”</p>
+<p>Claire is the fictional founding attorney at the center of this demonstration: a Tulsa native who built her practice around mediation, careful financial work, and parenting plans written for real children rather than ideal ones.</p>
+<p class="fine">Claire M. Sampson is a fictional character. She is not a real or licensed attorney.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-navy" href="attorney.html">Read Claire's profile</a><a class="btn" href="team.html">Meet the team</a></div></div></div></section>
+
+{carousel()}
+
+<section class="s"><div class="container"><div class="s-head reveal" style="display:flex;justify-content:space-between;align-items:end;max-width:none;gap:20px;flex-wrap:wrap"><div><span class="eyebrow">Insights</span><h2 style="margin:0">Guides for families in transition</h2></div><a class="btn btn-navy" href="insights/index.html">All insights</a></div>{post_cards()}</div></section>
+
+<section class="s cream"><div class="container info-grid"><div class="reveal"><span class="eyebrow">Visit the office</span><h2>Downtown-adjacent, easy to reach</h2><p>Our fictional office sits just south of downtown Tulsa, with free visitor parking and evening appointments by request.</p>{contact_block()}</div>
+<div class="map reveal d2">{MAP}</div></div></section>
+{cta()}''',"home")
+
+# ---------- PRACTICE AREAS
+for a in AREAS:
+    r="../"
+    paras="".join(f"<h2>{h}</h2>"+"".join(f"<p>{p}</p>" for p in ps) for h,ps in a["sections"])
+    steps="".join(f'<div class="step reveal d{i%4}"><h3>{t}</h3><p>{d}</p></div>' for i,(t,d) in enumerate(a["steps"]))
+    faqs="".join(f"<details><summary>{q}</summary><p>{ans}</p></details>" for q,ans in a["faqs"])
+    side="".join(f'<li><a href="{x["slug"]}.html"{" aria-current=page" if x is a else ""}>{x["name"]}<span>→</span></a></li>' for x in AREAS)
+    body=hero(a["name"],a["tagline"],['<a href="../index.html">Home</a>','<a href="index.html">Practice Areas</a>',a["name"]],a["img"],r)+f'''
+<section class="s"><div class="container layout"><article class="prose">{paras}
+<blockquote>{a["pull"]}</blockquote>
+<p class="fine">General educational information about Oklahoma law, written for a student demonstration. It is not legal advice and may not reflect current law. Verify statutes on <a href="https://www.oscn.net/">OSCN</a>.</p></article>
+<aside class="side"><div class="side-box dark"><h3>Talk it through</h3><p>Every situation is different. A consultation is the fastest way to understand your options.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p style="margin:14px 0 0;text-align:center"><a href="tel:{TEL}" style="color:var(--gold-2)">{PHONE}</a></p><p class="fine" style="margin:8px 0 0;text-align:center">Fictional firm; demo only.</p></div>
+<div class="side-box"><h3>Practice areas</h3><ul class="side-nav">{side}</ul></div>
+<div class="side-box"><h3>Office hours</h3><table class="hours">{"".join(f"<tr><td>{d}</td><td>{h}</td></tr>" for d,h in HOURS)}</table></div></aside></div></section>
+<section class="s cream"><div class="container"><div class="s-head reveal"><span class="eyebrow">The process</span><h2>What to expect, step by step</h2></div><div class="steps">{steps}</div></div></section>
+<section class="s"><div class="narrow"><div class="s-head center reveal"><span class="eyebrow">FAQ</span><h2>{a["name"]} questions, answered</h2></div><div class="faq reveal">{faqs}</div></div></section>
+{cta(r,f"Questions about {a['name'].lower()}?")}'''
+    pages[f"practice-areas/{a['slug']}.html"]=(f"{a['name']} in Tulsa",body,"")
+r="../"
+pages["practice-areas/index.html"]=("Practice Areas",hero("Practice Areas","Focused family law services for Tulsa-area spouses and parents, from first questions to final orders.",['<a href="../index.html">Home</a>',"Practice Areas"],"gavel.jpg",r)+f'<section class="s cream"><div class="container">{area_cards(r)}</div></section>'+cta(r),"")
+
+# ---------- ATTORNEY
+r=""
+creds="".join(f'<div class="cred"><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="#0a2540"/><circle cx="27" cy="27" r="20" fill="none" stroke="#c9a227"/><path d="M18 28l6 6 12-13" stroke="#e0c063" stroke-width="2.5" fill="none"/></svg><b>{t}</b><span>{s}</span></div>' for t,s in CREDS)
+pages["attorney.html"]=("Claire M. Sampson, Attorney Profile",hero("Claire M. Sampson","Founding Attorney (fictional character) · Family law, mediation, and parenting plans",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Meet the Attorney"],"arkansas-river.jpg")+f'''
+<section class="s"><div class="container profile"><div class="profile-card reveal"><div class="ph">{PORTRAIT}</div><div class="info"><h3 style="margin:0">Claire M. Sampson</h3><div class="eyebrow" style="margin:4px 0 0">Founding Attorney</div>
+<dl><dt>Focus</dt><dd>Divorce, custody, support, mediation</dd><dt>Education (fictional)</dt><dd>J.D., a fictional Oklahoma law school<br>B.A., Economics</dd><dt>Languages</dt><dd>English, conversational Spanish</dd><dt>Phone</dt><dd><a href="tel:{TEL}">{PHONE}</a></dd></dl>
+<p class="fine" style="margin-top:16px">Fictional character. Illustrated portrait, not a photograph of a real person. No bar admission, license, or bar number exists.</p>
+<a class="btn" href="contact.html" style="width:100%;justify-content:center;margin-top:8px">Schedule with Claire</a></div></div>
+<div class="prose reveal d1">{BIO}
+<h2>Credentials &amp; recognition</h2><div class="creds">{creds}</div>
+<p class="fine">These badges are invented, generic, and fictional. They do not represent real awards, ratings, certifications, or organizations.</p>
+<h2>In her own words</h2><blockquote>“I tell every client the same thing on day one: you will understand every decision before you make it. Confusion is expensive, in money and in sleep.”</blockquote></div></div></section>
+{carousel()}{cta(title="Want Claire's perspective on your situation?")}''',"")
+
+pages["team.html"]=("Our Team",hero("Our Team","A small, steady team that answers the phone, knows your file, and keeps your case moving.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Our Team"],"gathering-place.jpg")+f'''
+<section class="s cream"><div class="container"><div class="s-head center reveal"><span class="eyebrow">The people behind the practice</span><h2>Everyone here knows your name</h2><p>All team members are fictional characters created for this demonstration.</p></div>
+<div class="team">{"".join(f'<div class="member reveal d{i%4}"><div class="av">{avatar(n,c)}</div><h3>{n}</h3><div class="role">{role}</div><p>{d}</p></div>' for i,(n,role,d,c) in enumerate(TEAM))}</div>
+<p class="fine" style="text-align:center;margin-top:30px">Fictional people. Monogram avatars are used instead of photographs so no real person is presented as staff.</p></div></section>{cta()}''',"")
+
+pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A fictional Tulsa practice, and a real experiment in how AI agents can build a responsible professional website.",['<a href="index.html">Home</a>',"About"],"hero-tulsa-skyline.jpg")+f'''
+<section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">Our story (fictional)</span><h2>Built for families, not for billable hours</h2>
+<p>In the story this site tells, Claire Sampson opened her Tulsa practice after years of watching families spend their savings fighting over issues that a good mediator and an honest conversation could have settled. Her firm keeps a small caseload on purpose, so every client gets real attention.</p>
+<p>The practice values three things: <strong>clarity</strong> (no surprises about process or cost), <strong>steadiness</strong> (calm advocacy, even when the other side is not calm), and <strong>preparation</strong> (every negotiated agreement is backed by a case ready for court).</p>
+<a class="btn btn-navy" href="attorney.html">Meet the attorney</a></div><div class="photo-frame reveal d2"><img src="img/signing.jpg" alt="A pen resting on a printed contract" width="720" height="900" loading="lazy"></div></div></section>
+<section class="s cream" id="disclaimer"><div class="narrow prose reveal"><span class="eyebrow">About this project</span><h2>A law school demonstration, not a practice</h2>
+<p>Sampson Family Law was created by Hunter Briben, a law student, for a course on AI and the Law. The question behind it: can AI agents build a website as polished as a real firm's while staying honest about what it is?</p>
+<p>The visual standard was set by looking at professional Tulsa firm websites. No text, logos, reviews, or layout assets were copied; all copy is original, the logo is a custom SVG monogram, and photographs are free-licensed (see <a href="credits.html">credits</a>).</p>
+<h2>What is real and what is not</h2><ul><li><strong>Real:</strong> the statistics on the <a href="evidence.html">evidence page</a> (each linked to CDC or Census sources), the official resource links, the photographs (credited), and the <a href="build-log.html">build log</a>.</li>
+<li><strong>Fictional:</strong> the firm, Claire Sampson, the team, the address and 555 phone number, testimonials, client stories, credentials and badges, fees, and founding date.</li>
+<li><strong>Not present:</strong> any bar number, license, real award, real review, or way to send personal information.</li></ul></div></section>{cta()}''',"")
+
+pages["testimonials.html"]=("Client Stories",hero("Client Stories","Fictional stories that illustrate how family law matters often unfold.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Client Stories"],"family-beach.jpg")+f'''{carousel()}
+<section class="s cream"><div class="container"><div class="s-head center reveal"><span class="eyebrow">Case stories</span><h2>Three illustrative journeys</h2></div><div class="cards">{"".join(f'<article class="card reveal d{i}"><span class="eyebrow">Fictional example</span><h3>{t}</h3><p>{d}</p><p class="fine" style="margin-top:auto">Fictional story written for a class project. Any resemblance to real people or cases is coincidental.</p></article>' for i,(t,d) in enumerate(STORIES))}</div></div></section>{cta()}''',"")
+
+# ---------- INSIGHTS
+r="../"
+pages["insights/index.html"]=("Insights",hero("Insights","Plain-English guides on Oklahoma family law topics, written for a student demonstration.",['<a href="../index.html">Home</a>',"Insights"],"law-books.jpg",r)+f'<section class="s cream"><div class="container">{post_cards(r)}</div></section>'+cta(r),"insights")
+for p in POSTS:
+    pages[f"insights/{p['slug']}.html"]=(p["title"],hero(p["title"],p["dek"],['<a href="../index.html">Home</a>','<a href="index.html">Insights</a>',p["cat"]],p["img"],r)+f'''
+<section class="s"><div class="container layout"><article class="prose"><p class="fine">By the Sampson Family Law editorial team (fictional) · {p["read"]} min read · General information, not legal advice.</p>{p["body"]}</article>
+<aside class="side"><div class="side-box dark"><h3>Have a question?</h3><p>Talk to an attorney about your specific situation.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p class="fine" style="margin:10px 0 0">Demo only; fictional firm.</p></div>
+<div class="side-box"><h3>More insights</h3><ul class="side-nav">{"".join(f'<li><a href="{q["slug"]}.html">{q["title"]}<span>→</span></a></li>' for q in POSTS if q is not p)}</ul></div></aside></div></section>{cta(r)}''',"insights")
+
+# ---------- EVIDENCE (real cited data, unchanged numbers)
+r=""
+pages["evidence.html"]=("Evidence & Data",hero("Evidence &amp; Data","Real public data with a link to every source. If a number could not be verified, it was left out.",['<a href="index.html">Home</a>',"Evidence &amp; Data"],"law-books.jpg")+f'''
+<section class="s"><div class="container">
+<div class="stat-cards" style="margin-bottom:60px"><div class="stat-card reveal"><div class="num">2.4 per 1,000</div><p>U.S. divorce rate, provisional 2023 (45 reporting states and D.C.).</p><p class="src">Source: <a href="https://www.cdc.gov/nchs/fastats/marriage-divorce.htm">CDC / NCHS FastStats</a></p></div>
+<div class="stat-card reveal d1"><div class="num">$19.2B of $29.9B</div><p>Child support received vs. owed to U.S. custodial parents in 2022.</p><p class="src">Source: <a href="https://www2.census.gov/library/publications/2025/demo/p60-285.pdf">U.S. Census Bureau, P60-285</a></p></div></div>
 <h2>Marriage and divorce (U.S.)</h2>
-<table><tr><th>Measure</th><th>Value</th><th>Source</th></tr>
+<table class="data"><tr><th>Measure</th><th>Value</th><th>Source</th></tr>
 <tr><td>Divorces (45 reporting states + D.C.)</td><td>672,502</td><td rowspan="4"><a href="https://www.cdc.gov/nchs/fastats/marriage-divorce.htm">CDC / NCHS FastStats</a>, provisional 2023</td></tr>
 <tr><td>Divorce rate</td><td>2.4 per 1,000 population</td></tr>
 <tr><td>Marriages</td><td>2,041,926</td></tr>
 <tr><td>Marriage rate</td><td>6.1 per 1,000 population</td></tr></table>
 <p class="src">Note: not every state reports divorces to NCHS, so the national divorce count is incomplete. Oklahoma-specific rates are omitted here because they were not verified for this build.</p>
-<h2 style="margin-top:36px">Child support (U.S.)</h2>
-<table><tr><th>Measure</th><th>Value</th><th>Source</th></tr>
+<h2 style="margin-top:50px">Child support (U.S.)</h2>
+<table class="data"><tr><th>Measure</th><th>Value</th><th>Source</th></tr>
 <tr><td>Custodial parents with agreements supposed to receive support (2022)</td><td>about 4.7 million</td><td rowspan="4"><a href="https://www2.census.gov/library/publications/2025/demo/p60-285.pdf">U.S. Census Bureau, P60-285</a> (2025)</td></tr>
 <tr><td>Average annual support due (2022)</td><td>$6,390 (about $533/month); median $4,816</td></tr>
 <tr><td>Total due vs. received (2022)</td><td>$29.9 billion due; $19.2 billion received</td></tr>
 <tr><td>Share of custodial parents with an agreement (2022)</td><td>41.0%</td></tr>
 <tr><td>Parents receiving cash child support (2021)</td><td>4.1 million; $20.2 billion total; $441 average monthly</td><td><a href="https://www.census.gov/library/fact-sheets/2022/demo/p70fs-185.html">U.S. Census Bureau, Child Support Received: 2021</a></td></tr></table>
 <p class="src">The 2021 and 2022 figures come from different Census surveys and measure different things, so they should not be compared directly.</p>
-<h2 style="margin-top:36px">Official resources</h2>
-<ul><li><a href="https://oklahoma.gov/okdhs/services/child-support-services.html">Oklahoma Human Services, Child Support Services</a></li>
+<h2 style="margin-top:50px">Official resources</h2>
+<ul class="checks"><li><a href="https://oklahoma.gov/okdhs/services/child-support-services.html">Oklahoma Human Services, Child Support Services</a></li>
 <li><a href="https://www.oscn.net/">Oklahoma State Courts Network (OSCN)</a> for statutes and court records</li>
 <li><a href="https://www.acf.hhs.gov/css">U.S. Office of Child Support Services (HHS)</a></li>
-<li><a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> for people who need real legal help</li></ul>
-</div></section>''')
+<li><a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> for people who need real legal help</li></ul></div></section>''',"")
 
-pages["contact.html"]=("Contact (Demo)",head("Contact (Demo Only)","This form does not send anything anywhere.")+f'''<section><div class="container">{DISC}
-<form id="demo-form" class="contact-form" action="#" novalidate>
-<label for="n">Name</label><input id="n" type="text" autocomplete="off">
-<label for="e">Email</label><input id="e" type="email" autocomplete="off">
-<label for="m">How can we help? (demo only; please do not enter real details)</label><textarea id="m" rows="5"></textarea>
-<p style="margin-top:16px"><button type="submit" class="btn">Send (demo)</button></p></form>
-<div id="demo-notice" class="demo-notice" role="status"><strong>Demo only.</strong> Nothing was sent or saved. This is a student project, not a law firm. For real legal help in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</div>
-<p style="margin-top:24px">Location in the story: Tulsa, Oklahoma (fictional firm, no real office).</p></div></section>''')
+# ---------- CONTACT
+pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your situation and we will explain your options. (Demonstration: this form sends nothing.)",['<a href="index.html">Home</a>',"Contact"],"arkansas-river.jpg")+f'''
+<section class="s cream"><div class="container info-grid"><div class="reveal"><span class="eyebrow">Get in touch</span><h2>Schedule a confidential consultation</h2><p>Most consultations are held within the same week, in person or by video. Bring any court papers, a rough list of assets and debts, and your questions.</p>{contact_block()}<div class="map" style="margin-top:28px">{MAP}</div></div>
+<div class="form-card reveal d1"><h3>Request a consultation</h3><div class="demo-flag" role="note"><strong>Demo form.</strong> Nothing you type is sent or stored. Please do not enter real personal or case details.</div>
+<form id="demo-form" action="#" method="post" novalidate>
+<div class="form-row"><div class="field"><label for="f-first">First name</label><input id="f-first" name="first_name" type="text" autocomplete="off"></div><div class="field"><label for="f-last">Last name</label><input id="f-last" name="last_name" type="text" autocomplete="off"></div></div>
+<div class="form-row"><div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="off"></div><div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="off"></div></div>
+<div class="field"><label for="f-area">Practice area</label><select id="f-area" name="practice_area"><option value="">Choose one…</option>{"".join(f'<option value="{a["slug"]}">{a["name"]}</option>' for a in AREAS)}<option value="other">Something else</option></select></div>
+<div class="field"><label for="f-contact">Preferred contact method</label><select id="f-contact" name="contact_method"><option>Email</option><option>Phone</option><option>Video call</option></select></div>
+<div class="field"><label for="f-msg">How can we help? (demo; no real details)</label><textarea id="f-msg" name="message" rows="5"></textarea></div>
+<button type="submit" class="btn" style="width:100%;justify-content:center">Send request (demo)</button>
+<p class="fine" style="margin-top:12px">Submitting does not create an attorney-client relationship. This demo performs no network request.</p></form>
+<div id="demo-notice" class="demo-notice" role="status" tabindex="-1"><strong>Demo only.</strong> Nothing was sent or saved. This is a student project, not a law firm. For real legal help in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</div></div></div></section>''',"contact")
 
+# ---------- CREDITS
+cr=json.loads(pathlib.Path("img/credits.json").read_text())
+rows="".join(f'<tr><td><img src="img/{c["key"]}.jpg" alt="" width="120" height="80" style="width:120px;height:80px;object-fit:cover;border-radius:4px" loading="lazy"></td><td><a href="{html.escape(c["page"])}">{html.escape(c["title"])}</a></td><td>{html.escape(c["artist"])}</td><td>{f"<a href=\"{c['licurl']}\">{c['license']}</a>" if c["licurl"] else c["license"]}</td></tr>' for c in cr)
+pages["credits.html"]=("Image Credits",hero("Image Credits","Every photograph is free-licensed and credited here. Images were resized and color-overlaid for design.",['<a href="index.html">Home</a>',"Credits"],"gavel.jpg")+f'''
+<section class="s"><div class="container"><table class="data credits"><tr><th>Preview</th><th>Image (Wikimedia Commons)</th><th>Author</th><th>License</th></tr>{rows}</table>
+<p class="src">Changes: images were downscaled, recompressed, and displayed under navy color overlays or cropped. CC BY and CC BY 4.0 images are used with attribution as required; CC0 images require none but are credited anyway.</p>
+<h2 style="margin-top:40px">Original artwork</h2><p>The Sampson monogram logo, the illustrated attorney portrait, team monogram avatars, icons, credential badges, and the office map illustration are original SVG artwork created for this project. The portrait is an illustration of a fictional character, not a photograph of a real person.</p></div></section>''',"")
+
+# ---------- BUILD LOG
 def md2html(md):
     out=[];inlist=False
     for line in md.splitlines():
@@ -115,7 +277,11 @@ def md2html(md):
         elif line.strip(): out.append(f"<p>{l}</p>")
     if inlist: out.append("</ul>")
     return "\n".join(out)
-pages["build-log.html"]=("Build Log",head("Build Log","How AI agents built this site. Rendered from BUILD_LOG.md.")+'<section><div class="container">'+md2html(pathlib.Path("BUILD_LOG.md").read_text())+'</div></section>')
+pages["build-log.html"]=("Build Log",hero("Build Log","How AI agents built this site, including wrong turns. Rendered from BUILD_LOG.md.",['<a href="index.html">Home</a>',"Build Log"],"signing.jpg")+'<section class="s"><div class="narrow prose">'+md2html(pathlib.Path("BUILD_LOG.md").read_text())+'</div></section>',"")
 
-for p,(t,b) in pages.items(): pathlib.Path(p).write_text(shell(p,t,b))
+for p,v in pages.items():
+    t,b=v[0],v[1]; cur=v[2] if len(v)>2 else ""
+    pathlib.Path(p).parent.mkdir(parents=True,exist_ok=True)
+    pathlib.Path(p).write_text(shell(p,t,b,current=cur))
+pathlib.Path("img/favicon.svg").write_text(LOGO.replace('role="img"','xmlns="http://www.w3.org/2000/svg" role="img"'))
 print(len(pages),"pages")
