@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex"><title>Build Log | Sampson Family Law (Student Project)</title>
+<link rel="stylesheet" href="css/styles.css"></head><body>
+<div class="student-banner" role="note">Student project for a law school class. Not a law firm. No legal advice.</div>
+<header><div class="container"><nav aria-label="Main">
+<a class="logo" href="index.html">Sampson <span>Family Law</span></a>
+<button class="menu-toggle" aria-expanded="false" aria-label="Open menu">Menu</button>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li class="dropdown"><button aria-expanded="false">Practice Areas ▾</button><div class="dropdown-content"><a href="practice-areas/index.html">All practice areas</a><a href="practice-areas/family-law.html">Family Law</a><a href="practice-areas/mediation.html">Mediation</a><a href="practice-areas/divorce.html">Divorce</a><a href="practice-areas/child-custody.html">Child Custody</a><a href="practice-areas/child-support.html">Child Support</a><a href="practice-areas/criminal-law.html">Criminal Law</a></div></li>
+<li class="dropdown"><button aria-expanded="false">About ▾</button><div class="dropdown-content"><a href="about.html">About the project</a><a href="stories.html">Client stories (fictional)</a><a href="build-log.html">Build log</a></div></li>
+<li><a href="evidence.html">Evidence &amp; Resources</a></li>
+<li><a href="contact.html">Contact (demo)</a></li>
+</ul></nav></div></header>
+<main><section class="page-head"><div class="container"><h1>Build Log</h1><p>How AI agents built this site. Rendered from BUILD_LOG.md.</p></div></section><section><div class="container"><p>Shared log for humans and agents. Times are Central (CT). Records wrong turns and fixes too.</p>
+<h2 style="margin-top:30px">Team</h2>
+<ul class="log">
+<li><strong>Hunter Briben</strong>: law student, client, makes final decisions.</li>
+<li><strong>Grok (chat)</strong>: wrote the original one-page <code>index.html</code> draft (navy and gold, dropdown nav, disclaimers, fictional stories, demo form).</li>
+<li><strong>Grok Bot (executor agent)</strong>: split the draft into a multi-page site, added cited data, wrote this log.</li>
+</ul>
+<h2 style="margin-top:30px">Log</h2>
+<ul class="log">
+<li>2026-10-12 19:25 CT · Grok Bot · Read <code>grok_conversation_2.md</code> and used only the law-site part (ignored the meme and car parts). Kept the palette (<code>#0a2540</code> navy, <code>#c9a227</code> gold) and the draft&#x27;s disclaimer and story text.</li>
+<li>2026-10-12 19:27 CT · Grok Bot · Noticed the draft is set in Tulsa, Oklahoma. Kept Oklahoma for official resource links and used U.S. national data for statistics.</li>
+<li>2026-10-12 19:28 CT · Grok Bot · Verified sources before using any number: CDC/NCHS FastStats (marriage and divorce, provisional 2023) and Census P60-285 plus the 2021 child support fact sheet. Skipped Oklahoma state divorce rates because they were not verified. Rule: never invent numbers; if unsure, omit.</li>
+<li>2026-10-12 19:30 CT · Grok Bot · Fixes from the draft: the draft hid the nav entirely on mobile, so a menu button was added. Dropdowns now also open on click/tap. The draft&#x27;s form used <code>alert()</code>; it now shows an inline demo notice and sends nothing (no <code>action</code>, no network calls). Removed references to generated photos the site did not have.</li>
+<li>2026-10-12 19:31 CT · Grok Bot · Added a sticky &quot;Student project, not a law firm, no legal advice&quot; banner on every page, a &quot;Fictional example&quot; label on every story, and <code>noindex</code> on every page.</li>
+<li>2026-10-12 19:32 CT · Grok Bot · Pages are generated from <code>build.py</code> so the header, nav, and footer stay the same on every page. Added a Child Support practice page. Criminal Law is kept from the draft as a short overview only.</li>
+<li>2026-10-12 19:34 CT · Grok Bot · Tested with <code>python3 -m http.server</code> and curl: every page returns 200, every internal link resolves, and the banner appears on every page. Git repo created locally, not pushed.</li>
+</ul></div></section></main>
+<footer><div class="container"><p>© 2026 Sampson Family Law, a fictional firm created as a student project for a law school AI and the Law class.</p>
+<p>Not a law firm. Not a licensed attorney. Nothing here is legal advice. No attorney-client relationship is created by using this site.
+If you need legal help in Oklahoma, see <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a>.</p></div></footer>
+<script src="js/main.js"></script></body></html>
