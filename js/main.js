@@ -21,8 +21,16 @@ $$('.carousel').forEach(c=>{const sl=$$('.slide',c),dots=$('.dots',c);let i=0,t;
 // counters
 $$('[data-count]').forEach(el=>{const end=+el.dataset.count;let s=null;const run=ts=>{s=s||ts;const p=Math.min((ts-s)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+(el.dataset.suffix||'');if(p<1)requestAnimationFrame(run)};
  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){requestAnimationFrame(run);io.disconnect()}});io.observe(el)});
-// demo form: never submits over the network
-const f=$('#demo-form');if(f)f.addEventListener('submit',e=>{e.preventDefault();f.reset();const n=$('#demo-notice');n.classList.add('show');n.focus()});
+// consultation form: FormSubmit AJAX (live class demo)
+const f=$('#consult-form');if(f)f.addEventListener('submit',async e=>{e.preventDefault();const err=$('#form-err'),btn=$('button[type=submit]',f);err.hidden=true;
+ const nm=$('#f-name').value.trim(),em=$('#f-email').value.trim();
+ if(!nm||!/^\S+@\S+\.\S+$/.test(em)){err.textContent='Please enter your name and a valid email.';err.hidden=false;return}
+ btn.disabled=true;btn.textContent='Sending…';
+ try{const r=await fetch('https://formsubmit.co/ajax/lus3896@utulsa.edu',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});const d=await r.json().catch(()=>({}));
+  if(!r.ok||String(d.success)==='false')throw new Error(d.message||'Send failed');
+  $('#ok-title').textContent='Thanks, '+nm+'.';f.reset();f.hidden=true;const n=$('#demo-notice');n.classList.add('show');n.focus()}
+ catch(x){err.textContent='Sorry, the request could not be sent ('+x.message+'). Please try again.';err.hidden=false}
+ finally{btn.disabled=false;btn.textContent='Send request'}});
 const y=$('#yr');if(y)y.textContent=new Date().getFullYear();
 })();
 // character galleries: crossfade + Ken Burns (CSS), ~5s/slide, pause on hover/focus/button, reduced motion = no autoplay

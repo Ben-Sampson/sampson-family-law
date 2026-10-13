@@ -273,3 +273,5 @@ html,body{overflow-x:clip}
 .menu .nav-pay-li+.nav-cta-li{margin-left:8px}
 @media (max-width:1180px) and (min-width:961px){.menu .nav-cta{padding:10px 12px;font-size:.82rem}}
 @media (max-width:960px){.menu .nav-pay-li+.nav-cta-li{margin:10px 0 0}}
+
+.demo-notice.success{text-align:center;padding:30px 24px}.demo-notice.success h3{margin:8px 0;color:#21512c}.ok-check{width:52px;height:52px;margin:0 auto;border-radius:50%;background:#2f7a42;color:#fff;font-size:28px;line-height:52px}.form-err{color:#a12a2a;background:#fbecec;border:1px solid #e3b4b4;padding:10px 14px;border-radius:var(--r);font-size:.9rem}
