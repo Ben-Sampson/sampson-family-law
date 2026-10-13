@@ -36,7 +36,7 @@ def shell(path,title,body,desc="",current=""):
 <meta name="theme-color" content="#0a2540"><link rel="icon" href="{r}img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"><link rel="stylesheet" href="{r}css/styles.css"></head><body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="topline" role="note"><div class="container"><span>Demonstration project for a law school course; not a law firm. <a href="{r}about.html#disclaimer">Learn more</a></span><span class="tl-right"><span>{ADDR2} (fictional)</span><span>Mon–Fri 8:30–5:30</span></span></div></div>
+<div class="topline" role="note"><div class="container"><span>Demonstration project for a law school course; not a law firm. <a href="{r}about.html#disclaimer">Learn more</a></span><span class="tl-right"><span>{ADDR2} (fictional)</span><span>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</span></span></div></div>
 <header class="site-header"><div class="container nav">
 <a class="brand" href="{r}index.html" aria-label="Sampson Family Law, home">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
 <nav aria-label="Main"><button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -51,7 +51,7 @@ def shell(path,title,body,desc="",current=""):
 <li class="nav-cta-li"><a class="btn nav-cta" href="{r}contact.html">Free Consultation</a></li>
 </ul></nav></div></header><div class="scrim" aria-hidden="true"></div>
 <main id="main">{body}</main>
-<footer class="site-footer" style="--fbg:url({r}img/bg/twilight.jpg)"><div class="container"><div class="f-grid">
+<footer class="site-footer" style="background-image:linear-gradient(rgba(7,26,46,.93),rgba(7,26,46,.97)),url({r}img/bg/twilight.jpg)"><div class="container"><div class="f-grid">
 <div><a class="brand" href="{r}index.html">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
 <p>Steady counsel for Oklahoma families. A fictional firm, imagined and built for a law school course.</p></div>
 <div><h4>Practice Areas</h4><ul>{"".join(f'<li><a href="{r}practice-areas/{a["slug"]}.html">{a["name"]}</a></li>' for a in AREAS)}</ul></div>
