@@ -23,7 +23,7 @@ def ico(name):
      "mail":'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'}
     return f'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{P[name]}</svg>'
 
-AREA_ICON={"family-law":"family","mediation":"scale","divorce":"rings","child-custody":"child","child-support":"dollar","criminal-law":"shield","personal-injury":"car","medical-malpractice":"heart","wills-estate-planning":"doc"}
+AREA_ICON={"family-law":"family","mediation":"scale","divorce":"rings","child-custody":"child","child-support":"dollar","criminal-law":"shield","personal-injury":"car","wills-estate-planning":"doc"}
 
 def shell(path,title,body,desc="",current=""):
     r="../"*path.count("/")

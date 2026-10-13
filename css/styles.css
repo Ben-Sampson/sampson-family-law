@@ -68,7 +68,7 @@ section.s{padding:112px 0}.s.cream{background:var(--cream)}.s.navy{background:va
 .checks{list-style:none;padding:0;margin:20px 0}.checks li{padding-left:32px;position:relative;margin-bottom:10px}
 .checks li::before{content:"";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' stroke='%230a2540' stroke-width='2.4' fill='none'/%3E%3C/svg%3E") center/12px no-repeat}
 /* cards */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.cards{display:flex;flex-wrap:wrap;gap:26px;justify-content:center}.cards>.card{flex:1 1 calc(33.333% - 18px);max-width:calc(33.333% - 18px);min-width:260px;box-sizing:border-box}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;transition:.3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .card::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--gold);transition:width .4s}
 .card:hover{transform:translateY(-6px);box-shadow:var(--sh2);border-color:transparent}.card:hover::after{width:100%}
@@ -188,10 +188,10 @@ footer .brand{color:#fff;margin-bottom:18px}footer .brand-sub{color:var(--gold-2
  body.menu-open .menu-toggle span{background:#fff}
  .split,.profile,.layout,.info-grid{grid-template-columns:1fr;gap:44px}
  .profile-card,aside.side{position:static}
- .cards,.posts{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.band .grid4{grid-template-columns:1fr 1fr}
+ .posts{grid-template-columns:1fr 1fr}.cards>.card{flex-basis:calc(50% - 13px);max-width:calc(50% - 13px);min-width:0}.steps{grid-template-columns:1fr 1fr}.band .grid4{grid-template-columns:1fr 1fr}
 }
 @media (max-width:640px){body{font-size:16px}section.s{padding:68px 0}.nav{height:70px}.brand svg{width:42px;height:42px}.brand-name{font-size:1.15rem}
- .cards,.posts,.steps,.team,.creds,.stat-cards,.form-row,.f-grid{grid-template-columns:1fr}.topline .tl-right{display:none}
+ .posts,.steps,.team,.creds,.stat-cards,.form-row,.f-grid{grid-template-columns:1fr}.cards>.card{flex-basis:100%;max-width:100%;min-width:0}.topline .tl-right{display:none}
  .hero{min-height:auto}.hero .container{padding:70px 0}.photo-frame .badge-float{right:10px}.form-card{padding:26px}.hero-meta{gap:20px}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .menu>li>a.btn{background:var(--gold);color:var(--navy);padding:11px 18px;margin-left:8px}.menu>li>a.btn:hover{background:var(--gold-2);color:var(--navy)}
