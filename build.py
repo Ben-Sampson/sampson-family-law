@@ -36,6 +36,7 @@ def shell(path,title,body,desc="",current=""):
 <meta name="theme-color" content="#0a2540"><link rel="icon" href="{r}img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"><link rel="stylesheet" href="{r}css/styles.css"></head><body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="fiction-banner" role="note"><strong>Fictional practice:</strong> a class/portfolio project. Not a real law firm. No legal services offered.</div>
 <div class="topline" role="note"><div class="container"><span>Demonstration project for a law school course; not a law firm. <a href="{r}about.html#disclaimer">Learn more</a></span><span class="tl-right"><span>{ADDR2} (fictional)</span><span>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</span></span></div></div>
 <header class="site-header"><div class="container nav">
 <a class="brand" href="{r}index.html" aria-label="Sampson Family Law, home">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
