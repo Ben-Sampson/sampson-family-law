@@ -31,8 +31,8 @@ def shell(path,title,body,desc="",current=""):
     cur=lambda k:' aria-current="page"' if k==current else ''
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow"><title>{title} | Sampson Family Law (Student Demonstration)</title>
-<meta name="description" content="{html.escape(desc or 'A fictional Tulsa family law firm website built as a law school course demonstration. Not a law firm.')}">
+<meta name="robots" content="noindex, nofollow"><title>{title} | Sampson Family Law</title>
+<meta name="description" content="{html.escape(desc or 'A Tulsa law firm handling criminal defense, family law, personal injury, and estate planning.')}">
 <meta name="theme-color" content="#0a2540"><link rel="icon" href="{r}img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"><link rel="stylesheet" href="{r}css/styles.css"></head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -70,15 +70,15 @@ def hero(title,sub,crumbs,img="philtower.jpg",r=""):
     return f'<section class="page-hero"><div class="bg" style="background-image:url({r}img/{img})"></div><div class="container"><nav class="crumbs" aria-label="Breadcrumb">{c}</nav><h1>{title}</h1><p>{sub}</p></div></section>'
 
 def cta(r="",title="Ready for a fresh start?",text="Schedule a confidential consultation. We will listen first and explain your options in plain English."):
-    return f'''<section class="cta"><div class="bg" style="background-image:url({r}img/bg/sunset.jpg)"></div><div class="container on-dark reveal"><div><span class="eyebrow">Free initial consultation</span><h2>{title}</h2><p>{text}</p><p class="fine" style="margin-top:10px">Demonstration only: consultations, fees, and the firm itself are fictional.</p></div>
+    return f'''<section class="cta"><div class="bg" style="background-image:url({r}img/bg/sunset.jpg)"></div><div class="container on-dark reveal"><div><span class="eyebrow">Free initial consultation</span><h2>{title}</h2><p>{text}</p></div>
 <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="{r}contact.html">Request a consultation</a><a class="btn btn-ghost" href="tel:{TEL}">{PHONE}</a></div></div></section>'''
 
 def carousel(r="",title="In their words"):
     s="".join(f'<div class="slide" role="group" aria-roledescription="slide"><blockquote>{p["quote"]}</blockquote><cite>{p["name"]}, {p["place"]}</cite><a class="more" href="{r}people/{p["slug"]}.html">Read {p["name"].replace("The ","the ")}\'s story</a></div>' for p in CLIENTS)
     return f'''<section class="s navy" aria-labelledby="t-h"><div class="container on-dark"><div class="s-head center"><span class="eyebrow">Client stories</span><h2 id="t-h">{title}</h2></div>
-<div class="carousel" aria-roledescription="carousel" aria-label="Client testimonials (fictional)"><div class="slides" aria-live="polite">{s}</div>
+<div class="carousel" aria-roledescription="carousel" aria-label="Client testimonials"><div class="slides" aria-live="polite">{s}</div>
 <div class="c-ctrl"><button class="arrow prev" type="button" aria-label="Previous testimonial">←</button><div class="dots" role="tablist" aria-label="Choose testimonial"></div><button class="arrow next" type="button" aria-label="Next testimonial">→</button></div>
-<p class="fine" style="margin-top:28px">Fictional testimonials from fictional characters, written for a class demonstration. Past results do not guarantee future outcomes.</p></div></div></section>'''
+<p class="fine" style="margin-top:28px">Past results do not guarantee future outcomes.</p></div></div></section>'''
 
 CLIENTS=[p for p in PEOPLE if p["kind"]=="client"]; STAFF=[p for p in PEOPLE if p["kind"]=="staff"]
 AREA_NAME={a["slug"]:a["name"] for a in AREAS}
@@ -95,7 +95,7 @@ def person_card(p,r=""):
 def stories_for(slug,r="../"):
     cs=[p for p in CLIENTS if p["area"]==slug]
     if not cs: return ""
-    return '<div class="side-box"><h3>Client stories</h3>'+"".join(f'<a class="mini" href="{r}people/{p["slug"]}.html"><img src="{r}img/{p["gallery"][0][0]}" alt="" loading="lazy"><span><b>{p["name"]}</b><br><small>{p["place"]}</small></span></a>' for p in cs)+'<p class="fine" style="margin:8px 0 0">Fictional characters.</p></div>'
+    return '<div class="side-box"><h3>Client stories</h3>'+"".join(f'<a class="mini" href="{r}people/{p["slug"]}.html"><img src="{r}img/{p["gallery"][0][0]}" alt="" loading="lazy"><span><b>{p["name"]}</b><br><small>{p["place"]}</small></span></a>' for p in cs)+'</div>'
 
 def post_cards(r="",limit=3):
     return '<div class="posts">'+"".join(f'''<article class="post reveal d{i%3}"><a class="thumb" href="{r}insights/{p["slug"]}.html" tabindex="-1" aria-hidden="true"><img src="{r}img/{p["img"]}" alt="" loading="lazy" width="800" height="500"></a><div class="body"><div class="meta">{p["cat"]} · {p["read"]} min read</div><h3><a href="{r}insights/{p["slug"]}.html">{p["title"]}</a></h3><p>{p["dek"]}</p><a class="more" style="margin-top:auto;font-weight:700;text-decoration:none" href="{r}insights/{p["slug"]}.html">Read article →</a></div></article>''' for i,p in enumerate(POSTS[:limit]))+'</div>'
@@ -103,14 +103,14 @@ def post_cards(r="",limit=3):
 def area_cards(r="",img=False):
     return '<div class="cards">'+"".join(f'''<article class="card reveal d{i%3}"><div class="ico">{ico(AREA_ICON[a["slug"]])}</div><h3>{a["name"]}</h3><p>{a["card"]}</p><a class="more" href="{r}practice-areas/{a["slug"]}.html">Learn more<span class="sr"> about {a["name"]}</span></a></article>''' for i,a in enumerate(AREAS))+'</div>'
 
-MAP='''<svg viewBox="0 0 600 380" role="img" aria-labelledby="mapt"><title id="mapt">Illustrative map of a fictional office location south of downtown Tulsa, near the Arkansas River. Not to scale.</title>
+MAP='''<svg viewBox="0 0 600 380" role="img" aria-labelledby="mapt"><title id="mapt">Illustrative map of the office location south of downtown Tulsa, near the Arkansas River. Not to scale.</title>
 <rect width="600" height="380" fill="#f4f1ea"/><g fill="#e9e3d6"><rect x="30" y="30" width="110" height="70" rx="4"/><rect x="160" y="30" width="120" height="70" rx="4"/><rect x="300" y="30" width="110" height="70" rx="4"/><rect x="30" y="120" width="110" height="80" rx="4"/><rect x="160" y="120" width="120" height="80" rx="4"/><rect x="300" y="120" width="110" height="80" rx="4"/><rect x="30" y="220" width="110" height="70" rx="4"/><rect x="160" y="220" width="120" height="70" rx="4"/></g>
 <rect x="430" y="30" width="150" height="110" rx="6" fill="#dbe8d6"/><text x="505" y="90" text-anchor="middle" font-size="12" fill="#5d7a56" font-family="sans-serif">Park</text>
 <path d="M600 170 C 520 200, 470 260, 430 300 S 330 360, 250 380" fill="none" stroke="#b9d3e8" stroke-width="34"/><text x="470" y="300" font-size="12" fill="#5e86a8" font-family="sans-serif" transform="rotate(-38 470 300)">Arkansas River</text>
 <g stroke="#fff" stroke-width="9" fill="none"><path d="M0 110H600M0 210H440M150 0V380M290 0V330M420 0V250"/></g><path d="M0 110H600" stroke="#cfe3df" stroke-width="4"/>
 <g font-family="sans-serif" font-size="11" fill="#6b7785"><text x="40" y="106">W. Example St.</text><text x="295" y="20" transform="rotate(90 295 20)">S. Fictional Ave.</text><text x="70" y="70">Downtown</text></g>
 <g transform="translate(290 210)"><circle r="30" fill="#cdbf9f" opacity=".18"><animate attributeName="r" values="14;34;14" dur="3s" repeatCount="indefinite"/></circle><path d="M0 0c-12-16-18-24-18-32a18 18 0 0 1 36 0c0 8-6 16-18 32z" fill="#0a2540" transform="translate(0 -4)"/><circle cy="-36" r="6.5" fill="#efe7d6"/></g>
-<rect x="316" y="228" width="230" height="46" rx="6" fill="#fff" stroke="#e1e5ea"/><text x="330" y="248" font-family="Georgia,serif" font-size="14" fill="#0a2540">Sampson Family Law</text><text x="330" y="265" font-family="sans-serif" font-size="11" fill="#6b7785">Suite 555 · fictional location</text>
+<rect x="316" y="228" width="230" height="46" rx="6" fill="#fff" stroke="#e1e5ea"/><text x="330" y="248" font-family="Georgia,serif" font-size="14" fill="#0a2540">Sampson Family Law</text><text x="330" y="265" font-family="sans-serif" font-size="11" fill="#6b7785">Suite 555 · Tulsa, OK</text>
 <text x="590" y="372" text-anchor="end" font-family="sans-serif" font-size="10" fill="#8a96a3">Illustration only, not to scale</text></svg>'''
 
 def contact_block(r=""):
@@ -127,7 +127,7 @@ pages["index.html"]=("Tulsa Law Firm",f'''
 <section class="hero"><div class="hero-bg" style="background-image:url(img/bg/beach-hero.jpg)" role="img" aria-label="Palm trees above a calm blue ocean"></div><div class="container on-dark">
 <span class="eyebrow">Sampson Family Law · Tulsa</span>
 <h1>Steady counsel for the moments that matter.</h1>
-<p class="lead">Family law, personal injury, estate planning, and defense, handled by a small team that knows your name and explains things plainly.</p>
+<p class="lead">Criminal defense, family law, personal injury, and estate planning, handled by a small team that knows your name and explains things plainly.</p>
 <div class="hero-actions"><a class="btn" href="contact.html">Schedule a consultation</a><a class="btn btn-ghost" href="team.html">Meet the team</a></div></div></section>
 
 <section class="qr-intake" aria-labelledby="qr-intake-h"><div class="container qr-band"><div class="qr-card"><img src="img/qr/intake.svg" alt="QR code that opens the free consultation form on your phone" width="260" height="260"></div>
@@ -171,8 +171,8 @@ for a in AREAS:
     body=hero(a["name"],a["tagline"],['<a href="../index.html">Home</a>','<a href="index.html">Practice Areas</a>',a["name"]],a["img"],r)+f'''
 <section class="s"><div class="container layout"><article class="prose">{paras}
 <blockquote>{a["pull"]}</blockquote>
-<p class="fine">General educational information about Oklahoma law, written for a student demonstration. It is not legal advice and may not reflect current law. Verify statutes on <a href="https://www.oscn.net/">OSCN</a>.</p></article>
-<aside class="side"><div class="side-box dark"><h3>Talk it through</h3><p>Every situation is different. A consultation is the fastest way to understand your options.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p style="margin:14px 0 0;text-align:center"><a href="tel:{TEL}" style="color:var(--sand)">{PHONE}</a></p><p class="fine" style="margin:8px 0 0;text-align:center">Fictional firm; demo only.</p></div>
+<p class="fine">This is general information about Oklahoma law, not legal advice. It may not reflect current law. Verify statutes on <a href="https://www.oscn.net/">OSCN</a>.</p></article>
+<aside class="side"><div class="side-box dark"><h3>Talk it through</h3><p>Every situation is different. A consultation is the fastest way to understand your options.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p style="margin:14px 0 0;text-align:center"><a href="tel:{TEL}" style="color:var(--sand)">{PHONE}</a></p></div>
 {stories_for(a["slug"])}<div class="side-box"><h3>Practice areas</h3><ul class="side-nav">{side}</ul></div>
 <div class="side-box"><h3>Office hours</h3><table class="hours">{"".join(f"<tr><td>{d}</td><td>{h}</td></tr>" for d,h in HOURS)}</table></div></aside></div></section>
 <section class="s cream"><div class="container"><div class="s-head reveal"><span class="eyebrow">The process</span><h2>What to expect, step by step</h2></div><div class="steps">{steps}</div></div></section>
@@ -180,7 +180,7 @@ for a in AREAS:
 {cta(r,f"Questions about {a['name'].lower()}?")}'''
     pages[f"practice-areas/{a['slug']}.html"]=(f"{a['name']} in Tulsa",body,"")
 r="../"
-pages["practice-areas/index.html"]=("Practice Areas",hero("Practice Areas","Focused family law services for Tulsa-area spouses and parents, from first questions to final orders.",['<a href="../index.html">Home</a>',"Practice Areas"],"gavel.jpg",r)+f'<section class="s cream"><div class="container">{area_cards(r)}</div></section>'+cta(r),"")
+pages["practice-areas/index.html"]=("Practice Areas",hero("Practice Areas","Criminal defense, family law, personal injury, and estate planning for clients in the Tulsa area.",['<a href="../index.html">Home</a>',"Practice Areas"],"gavel.jpg",r)+f'<section class="s cream"><div class="container">{area_cards(r)}</div></section>'+cta(r),"")
 
 # ---------- PEOPLE (character pages)
 r="../"
@@ -193,7 +193,7 @@ for p in PEOPLE:
 <h1>{p["name"]}</h1><p class="role-line">{p["role"]}</p><p class="lead">{p["summary"]}</p><dl class="facts">{facts}</dl>
 <a class="btn" href="../contact.html">Schedule a consultation</a></div>{gallery(p)}</div></section>
 <section class="s"><div class="container layout"><article class="prose">{"".join(f"<p>{x}</p>" for x in p["bio"])}
-<p class="fine">{p["name"]} is a fictional character in a student demonstration, played by a member of the site owner's family or circle of friends. No license, bar admission, or bar number exists.</p></article>
+</article>
 <aside class="side">{f'<div class="side-box"><h3>Practice areas</h3><ul class="side-nav">{rel}</ul></div>' if rel else ""}<div class="side-box"><h3>The team</h3><ul class="side-nav">{"".join(f'<li><a href="{x["slug"]}.html">{x["name"]}<span>{x["role"]}</span></a></li>' for x in STAFF if x is not p)}</ul></div></aside></div></section>{cta(r)}'''
         title=f"{p['name']}, {p['role']}"
     else:
@@ -201,7 +201,7 @@ for p in PEOPLE:
 <span class="eyebrow">{AREA_NAME[p["area"]]}</span><h1>{p["name"]}</h1><p class="role-line">{p["place"]}</p>
 <blockquote class="quote">{p["quote"]}</blockquote></div>{gallery(p)}</div></section>
 <section class="s"><div class="container layout"><article class="prose"><h2>The story</h2>{"".join(f"<p>{x}</p>" for x in p["story"])}
-<p class="fine">Fictional client and fictional story, played by a member of the site owner's family or circle of friends for a class demonstration. Not a real case or result. Past results do not guarantee future outcomes.</p></article>
+<p class="fine">Past results do not guarantee future outcomes.</p></article>
 <aside class="side"><div class="side-box"><h3>Practice area</h3><ul class="side-nav"><li><a href="../practice-areas/{p["area"]}.html">{AREA_NAME[p["area"]]}<span>→</span></a></li></ul></div><div class="side-box"><h3>More stories</h3><ul class="side-nav">{"".join(f'<li><a href="{x["slug"]}.html">{x["name"]}<span>→</span></a></li>' for x in CLIENTS if x is not p)}</ul></div></aside></div></section>{cta(r)}'''
         title=f"{p['name']}, Client Story"
     pages[f"people/{p['slug']}.html"]=(title,body,"")
@@ -209,9 +209,9 @@ for p in PEOPLE:
 r=""
 pages["team.html"]=("Our Team",hero("Our Team","A small team that answers the phone, knows your file, and keeps your case moving.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Our Team"],"bg/courtroom-wide.jpg")+f'''
 <section class="s cream"><div class="container"><div class="people">{"".join(person_card(p) for p in STAFF)}</div>
-<p class="fine" style="text-align:center;margin-top:30px">Fictional characters, played by the site owner's family and friends. Photos used with permission.</p></div></section>{cta()}''',"")
+<p class="fine" style="text-align:center;margin-top:30px">Photos used with permission.</p></div></section>{cta()}''',"")
 
-pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A small Tulsa practice, and a student experiment in building a responsible professional website.",['<a href="index.html">Home</a>',"About"],"bg/beach-hero.jpg")+f'''
+pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A small Tulsa practice that values clarity, steadiness, and preparation.",['<a href="index.html">Home</a>',"About"],"bg/beach-hero.jpg")+f'''
 <section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">Our story</span><h2>The family behind Sampson Family Law</h2>
 <p>Ben Sampson founded Sampson Family Law to give Tulsa families a steady hand through hard moments. Libby Sampson leads the firm's trial work, and Tater runs the front desk.</p>
 <p>The practice values <strong>clarity</strong>, <strong>steadiness</strong>, and <strong>preparation</strong>.</p>
@@ -223,17 +223,17 @@ pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A small T
 <li><strong>Fictional:</strong> the firm, every character and role (attorneys, staff, clients, and receptionist), the address and 555 phone number, testimonials, client stories, outcomes, and founding date.</li>
 <li><strong>Not present:</strong> any bar number, license, real award, real review, or real intake system. (The contact form emails the student presenter for a live class demo; please don't send sensitive information.)</li></ul></div></section>{cta()}''',"")
 
-pages["testimonials.html"]=("Client Stories",hero("Client Stories","Fictional stories from fictional clients, written for a class demonstration.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Client Stories"],"bg/beach-palms.jpg")+f'''
+pages["testimonials.html"]=("Client Stories",hero("Client Stories","Words from clients we have been glad to help.",['<a href="index.html">Home</a>','<a href="about.html">Our Firm</a>',"Client Stories"],"bg/beach-palms.jpg")+f'''
 <section class="s cream"><div class="container"><div class="stories">{"".join(f'<article class="story reveal"><a href="people/{p["slug"]}.html" tabindex="-1" aria-hidden="true"><img src="img/{p["gallery"][0][0]}" alt="" loading="lazy"></a><div><span class="eyebrow">{AREA_NAME[p["area"]]}</span><blockquote>{p["quote"]}</blockquote><cite>{p["name"]}, {p["place"]}</cite><a class="more" href="people/{p["slug"]}.html">Read the story<span class="sr"> of {p["name"]}</span></a></div></article>' for p in CLIENTS)}</div>
-<p class="fine" style="text-align:center;margin-top:30px">All clients, stories, and testimonials are fictional and do not describe real cases or results.</p></div></section>{cta()}''',"")
+<p class="fine" style="text-align:center;margin-top:30px">Past results do not guarantee future outcomes.</p></div></section>{cta()}''',"")
 
 # ---------- INSIGHTS
 r="../"
-pages["insights/index.html"]=("Insights",hero("Insights","Plain-English guides on Oklahoma family law topics, written for a student demonstration.",['<a href="../index.html">Home</a>',"Insights"],"law-books.jpg",r)+f'<section class="s cream"><div class="container">{post_cards(r)}</div></section>'+cta(r),"insights")
+pages["insights/index.html"]=("Insights",hero("Insights","Plain-English guides on Oklahoma family law topics.",['<a href="../index.html">Home</a>',"Insights"],"law-books.jpg",r)+f'<section class="s cream"><div class="container">{post_cards(r)}</div></section>'+cta(r),"insights")
 for p in POSTS:
     pages[f"insights/{p['slug']}.html"]=(p["title"],hero(p["title"],p["dek"],['<a href="../index.html">Home</a>','<a href="index.html">Insights</a>',p["cat"]],p["img"],r)+f'''
 <section class="s"><div class="container layout"><article class="prose"><p class="fine">By the Sampson Family Law editorial team · {p["read"]} min read · General information, not legal advice.</p>{p["body"]}</article>
-<aside class="side"><div class="side-box dark"><h3>Have a question?</h3><p>Talk to an attorney about your specific situation.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p class="fine" style="margin:10px 0 0">Demo only; fictional firm.</p></div>
+<aside class="side"><div class="side-box dark"><h3>Have a question?</h3><p>Talk to an attorney about your specific situation.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a></div>
 <div class="side-box"><h3>More insights</h3><ul class="side-nav">{"".join(f'<li><a href="{q["slug"]}.html">{q["title"]}<span>→</span></a></li>' for q in POSTS if q is not p)}</ul></div></aside></div></section>{cta(r)}''',"insights")
 
 # ---------- EVIDENCE (real cited data, unchanged numbers)
