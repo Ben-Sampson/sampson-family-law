@@ -294,3 +294,5 @@ html,body{overflow-x:clip}
 .fiction-banner strong{letter-spacing:.02em}
 
 .qr-intake{background:var(--cream);border-bottom:1px solid var(--line);padding:40px 0}.qr-band{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center}.qr-card{background:#fff;padding:12px;border-radius:10px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(10,37,64,.10);width:260px}.qr-card img{width:100%;height:auto;image-rendering:pixelated}.qr-text h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:.3em}.qr-text p{margin:.3em 0}@media(max-width:860px){.qr-intake{display:none}}
+
+.f-legal p{font-size:.78rem;opacity:.8}.tl-note{opacity:.75}

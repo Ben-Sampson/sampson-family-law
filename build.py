@@ -36,8 +36,7 @@ def shell(path,title,body,desc="",current=""):
 <meta name="theme-color" content="#0a2540"><link rel="icon" href="{r}img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"><link rel="stylesheet" href="{r}css/styles.css"></head><body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="fiction-banner" role="note"><strong>Fictional practice:</strong> a class/portfolio project. Not a real law firm. No legal services offered.</div>
-<div class="topline" role="note"><div class="container"><span>Demonstration project for a law school course; not a law firm. <a href="{r}about.html#disclaimer">Learn more</a></span><span class="tl-right"><span>{ADDR2} (fictional)</span><span>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</span></span></div></div>
+<div class="topline" role="note"><div class="container"><span class="tl-note">Fictional firm · TU Law class project · <a href="{r}about.html#disclaimer">About</a></span><span class="tl-right"><span>{ADDR2}</span><span>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</span></span></div></div>
 <header class="site-header"><div class="container nav">
 <a class="brand" href="{r}index.html" aria-label="Sampson Family Law, home">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
 <nav aria-label="Main"><button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -54,16 +53,13 @@ def shell(path,title,body,desc="",current=""):
 <main id="main">{body}</main>
 <footer class="site-footer" style="background-image:linear-gradient(rgba(7,26,46,.93),rgba(7,26,46,.97)),url({r}img/bg/twilight.jpg)"><div class="container"><div class="f-grid">
 <div><a class="brand" href="{r}index.html">{LOGO}<span class="brand-text"><span class="brand-name">Sampson</span><span class="brand-sub">Family Law · Tulsa</span></span></a>
-<p>Steady counsel for Oklahoma families. A fictional firm, imagined and built for a law school course.</p></div>
+<p>Steady counsel for Oklahoma families.</p></div>
 <div><h4>Practice Areas</h4><ul>{"".join(f'<li><a href="{r}practice-areas/{a["slug"]}.html">{a["name"]}</a></li>' for a in AREAS)}</ul></div>
 <div><h4>Explore</h4><ul><li><a href="{r}about.html">About the firm</a></li><li><a href="{r}people/ben-sampson.html">Ben Sampson</a></li><li><a href="{r}people/libby-sampson.html">Libby Sampson</a></li><li><a href="{r}team.html">Our team</a></li><li><a href="{r}testimonials.html">Client stories</a></li><li><a href="{r}insights/index.html">Insights</a></li><li><a href="{r}evidence.html">Evidence &amp; data</a></li><li><a href="{r}credits.html">Image credits</a></li><li><a href="{r}build-log.html">Build log</a></li><li><a href="{r}payments.html">Make a payment (demo)</a></li></ul></div>
-<div><h4>Visit (fictional)</h4><ul><li>{ADDR1}<br>{ADDR2}</li><li><a href="tel:{TEL}">{PHONE}</a></li><li>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</li></ul><p style="margin-top:18px"><a class="btn nav-cta" href="{r}contact.html">Schedule a consultation</a></p></div>
+<div><h4>Visit</h4><ul><li>{ADDR1}<br>{ADDR2}</li><li><a href="tel:{TEL}">{PHONE}</a></li><li>Mon–Thu 8:30–5:30 · Fri 8:30–4:00</li></ul><p style="margin-top:18px"><a class="btn nav-cta" href="{r}contact.html">Schedule a consultation</a></p></div>
 </div>
-<div class="f-legal">
-<p><strong>Demonstration project. Not a law firm.</strong> Sampson Family Law is a fictional firm created by a law student for a law school course on AI and the Law. It is not a real law firm and has no office, staff, or clients. Every person named on this site, including Ben Sampson, Libby Sampson, Tater, and every client, is a fictional character. The people in the photographs are the site owner's family and friends (and dog) playing those roles; their photos are used with permission of the owner and do not depict real attorneys, staff, or clients. No one on this site is a licensed attorney, and the creator is not licensed to practice law in Oklahoma or any other jurisdiction.</p>
-<p><strong>No legal advice. No attorney-client relationship.</strong> Nothing on this site is legal advice, and using it does not create an attorney-client relationship. Statutes and procedures change; information here is general and may be incomplete or out of date. For help with a real legal matter in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p>
-<p><strong>Fictional details.</strong> The address, suite, phone number (555 numbers are reserved for fiction), hours, testimonials, client stories, characters, case outcomes, team members, credentials, and badges are invented for the demonstration. They are not real reviews, awards, bar memberships, or certifications. The consultation form on the contact page is a live class demonstration: submissions are emailed to the student presenter, so do not include sensitive or confidential information. The payments page takes no payments: its handles are fictional, and its QR codes open a demonstration page on this site, not any payment app or account. Statistics on the <a href="{r}evidence.html">evidence page</a> are real and cited to their public sources. Character photographs are personal photos used with permission of the owner; other photographs are free-licensed. See <a href="{r}credits.html">image credits</a>.</p>
-<div class="f-bottom"><span>© <span id="yr">2026</span> Sampson Family Law (fictional). Student demonstration project.</span><span>Built with AI agents · <a href="{r}build-log.html">See how</a></span></div>
+<div class="f-legal"><p>Sampson Family Law is a fictional firm created for a University of Tulsa College of Law class project. Not legal advice; no attorney-client relationship. Names, testimonials, and details are invented; people pictured are family and friends, used with permission. <a href="{r}about.html#disclaimer">More about this project</a>.</p></div>
+<div class="f-bottom"><span>© <span id="yr">2026</span> Sampson Family Law.</span><span>Built with AI agents · <a href="{r}build-log.html">See how</a></span></div>
 </div></div></footer>
 <button class="to-top" aria-label="Back to top">↑</button>
 <script src="{r}js/main.js"></script></body></html>
@@ -119,9 +115,9 @@ MAP='''<svg viewBox="0 0 600 380" role="img" aria-labelledby="mapt"><title id="m
 
 def contact_block(r=""):
     hrs="".join(f"<tr><td>{d}</td><td>{h}</td></tr>" for d,h in HOURS)
-    return f'''<div class="info-block"><div class="info-item"><div class="ico">{ico("pin")}</div><div><b>Office (fictional)</b><span>{ADDR1}<br>{ADDR2}</span></div></div>
-<div class="info-item"><div class="ico">{ico("phone")}</div><div><b>Phone</b><a href="tel:{TEL}">{PHONE}</a> <span>(fictional 555 number)</span></div></div>
-<div class="info-item"><div class="ico">{ico("mail")}</div><div><b>Email</b><span>hello@sampson-law.example (placeholder; the .example domain cannot receive mail)</span></div></div>
+    return f'''<div class="info-block"><div class="info-item"><div class="ico">{ico("pin")}</div><div><b>Office</b><span>{ADDR1}<br>{ADDR2}</span></div></div>
+<div class="info-item"><div class="ico">{ico("phone")}</div><div><b>Phone</b><a href="tel:{TEL}">{PHONE}</a></div></div>
+<div class="info-item"><div class="ico">{ico("mail")}</div><div><b>Email</b><span>hello@sampson-law.example</span></div></div>
 <div class="info-item"><div class="ico">{ico("clock")}</div><div style="flex:1"><b>Office hours</b><table class="hours">{hrs}</table></div></div></div>'''
 
 pages={}
@@ -132,11 +128,10 @@ pages["index.html"]=("Tulsa Law Firm",f'''
 <span class="eyebrow">Sampson Family Law · Tulsa</span>
 <h1>Steady counsel for the moments that matter.</h1>
 <p class="lead">Family law, personal injury, estate planning, and defense, handled by a small team that knows your name and explains things plainly.</p>
-<div class="hero-actions"><a class="btn" href="contact.html">Schedule a consultation</a><a class="btn btn-ghost" href="team.html">Meet the team</a></div>
-<p class="fine" style="margin-top:28px">Fictional firm, created for a law school demonstration.</p></div></section>
+<div class="hero-actions"><a class="btn" href="contact.html">Schedule a consultation</a><a class="btn btn-ghost" href="team.html">Meet the team</a></div></div></section>
 
 <section class="qr-intake" aria-labelledby="qr-intake-h"><div class="container qr-band"><div class="qr-card"><img src="img/qr/intake.svg" alt="QR code that opens the free consultation form on your phone" width="260" height="260"></div>
-<div class="qr-text"><span class="eyebrow">On your phone?</span><h2 id="qr-intake-h">Scan to start your free consultation</h2><p>Point your camera at the code to open the same consultation form as our Contact page, ready to fill out on your phone.</p><p class="fine">Demonstration site: please use made-up details.</p></div>
+<div class="qr-text"><span class="eyebrow">On your phone?</span><h2 id="qr-intake-h">Scan to request a consultation</h2><p>Point your phone camera at the code to open our consultation form.</p></div>
 <div class="qr-cta"><a class="btn" href="contact.html">Request a consultation</a></div></div></section>
 
 <section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">The firm</span><h2>A small practice, by design</h2>
@@ -217,7 +212,7 @@ pages["team.html"]=("Our Team",hero("Our Team","A small team that answers the ph
 <p class="fine" style="text-align:center;margin-top:30px">Fictional characters, played by the site owner's family and friends. Photos used with permission.</p></div></section>{cta()}''',"")
 
 pages["about.html"]=("About the Firm",hero("About Sampson Family Law","A small Tulsa practice, and a student experiment in building a responsible professional website.",['<a href="index.html">Home</a>',"About"],"bg/beach-hero.jpg")+f'''
-<section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">Our story (fictional)</span><h2>The family behind Sampson Family Law</h2>
+<section class="s"><div class="container split"><div class="reveal"><span class="eyebrow">Our story</span><h2>The family behind Sampson Family Law</h2>
 <p>Ben Sampson founded Sampson Family Law to give Tulsa families a steady hand through hard moments. Libby Sampson leads the firm's trial work, and Tater runs the front desk.</p>
 <p>The practice values <strong>clarity</strong>, <strong>steadiness</strong>, and <strong>preparation</strong>.</p>
 <a class="btn btn-navy" href="team.html">Meet the team</a></div><figure class="photo-frame reveal d2"><img src="img/people/family-behind-firm.jpg" alt="Ben and Libby Sampson outdoors with Tater the bulldog" width="619" height="900" loading="lazy"><figcaption>The family behind Sampson Family Law.</figcaption></figure></div></section>
@@ -237,7 +232,7 @@ r="../"
 pages["insights/index.html"]=("Insights",hero("Insights","Plain-English guides on Oklahoma family law topics, written for a student demonstration.",['<a href="../index.html">Home</a>',"Insights"],"law-books.jpg",r)+f'<section class="s cream"><div class="container">{post_cards(r)}</div></section>'+cta(r),"insights")
 for p in POSTS:
     pages[f"insights/{p['slug']}.html"]=(p["title"],hero(p["title"],p["dek"],['<a href="../index.html">Home</a>','<a href="index.html">Insights</a>',p["cat"]],p["img"],r)+f'''
-<section class="s"><div class="container layout"><article class="prose"><p class="fine">By the Sampson Family Law editorial team (fictional) · {p["read"]} min read · General information, not legal advice.</p>{p["body"]}</article>
+<section class="s"><div class="container layout"><article class="prose"><p class="fine">By the Sampson Family Law editorial team · {p["read"]} min read · General information, not legal advice.</p>{p["body"]}</article>
 <aside class="side"><div class="side-box dark"><h3>Have a question?</h3><p>Talk to an attorney about your specific situation.</p><a class="btn" href="../contact.html" style="width:100%;justify-content:center">Request a consultation</a><p class="fine" style="margin:10px 0 0">Demo only; fictional firm.</p></div>
 <div class="side-box"><h3>More insights</h3><ul class="side-nav">{"".join(f'<li><a href="{q["slug"]}.html">{q["title"]}<span>→</span></a></li>' for q in POSTS if q is not p)}</ul></div></aside></div></section>{cta(r)}''',"insights")
 
@@ -269,10 +264,9 @@ pages["evidence.html"]=("Evidence & Data",hero("Evidence &amp; Data","Real publi
 <li><a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> for people who need real legal help</li></ul></div></section>''',"")
 
 # ---------- CONTACT
-pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your situation and we will explain your options. (Class demonstration: submissions go to the student presenter.)",['<a href="index.html">Home</a>',"Contact"],"bg/twilight.jpg")+f'''
+pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your situation and we will explain your options.",['<a href="index.html">Home</a>',"Contact"],"bg/twilight.jpg")+f'''
 <section class="s cream"><div class="container info-grid"><div class="reveal"><span class="eyebrow">Get in touch</span><h2>Schedule a confidential consultation</h2><p>Most consultations are held within the same week, in person or by video. Bring any court papers, a rough list of assets and debts, and your questions.</p>{contact_block()}<div class="map" style="margin-top:28px">{MAP}</div></div>
-<div class="form-card reveal d1"><h3>Request a consultation</h3><div class="demo-flag" role="note"><strong>Live class demo.</strong> This form really sends your request to the student presenter. Please do not enter sensitive or confidential details.</div>
-<form id="consult-form" action="https://formsubmit.co/4p4np9sv@mail.grokbot.com" method="post" novalidate>
+<div class="form-card reveal d1"><h3>Request a consultation</h3><form id="consult-form" action="https://formsubmit.co/4p4np9sv@mail.grokbot.com" method="post" novalidate>
 <input type="hidden" name="_subject" value="Sampson Family Law demo consultation request"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-honey">Leave blank</label><input id="f-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
 <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
@@ -289,7 +283,7 @@ pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your 
 <div class="field"><label for="f-msg">How can we help?</label><textarea id="f-msg" name="message" rows="5"></textarea></div>
 <p id="form-err" class="form-err" role="alert" hidden></p>
 <button type="submit" class="btn" style="width:100%;justify-content:center">Send request</button>
-<p class="fine" style="margin-top:12px">Demonstration form for a law school course. Your submission is sent to the student presenter. Don't include sensitive or confidential information.</p></form>
+<p class="fine" style="margin-top:12px">Please don't include confidential details in this form. Submitting it does not create an attorney-client relationship.</p></form>
 <div id="demo-notice" class="demo-notice success" role="status" tabindex="-1"><div class="ok-check" aria-hidden="true">✓</div><h3 id="ok-title">Thanks.</h3><p>Your request was received; this is a class demonstration, so no attorney-client relationship is formed and no legal services will be provided.</p><p class="fine">For real legal help in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p></div></div></div></section>''',"contact")
 
 # ---------- CREDITS
