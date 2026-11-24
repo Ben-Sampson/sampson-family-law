@@ -268,12 +268,19 @@ pages["evidence.html"]=("Evidence & Data",hero("Evidence &amp; Data","Real publi
 pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your situation and we will explain your options. (Class demonstration: submissions go to the student presenter.)",['<a href="index.html">Home</a>',"Contact"],"bg/twilight.jpg")+f'''
 <section class="s cream"><div class="container info-grid"><div class="reveal"><span class="eyebrow">Get in touch</span><h2>Schedule a confidential consultation</h2><p>Most consultations are held within the same week, in person or by video. Bring any court papers, a rough list of assets and debts, and your questions.</p>{contact_block()}<div class="map" style="margin-top:28px">{MAP}</div></div>
 <div class="form-card reveal d1"><h3>Request a consultation</h3><div class="demo-flag" role="note"><strong>Live class demo.</strong> This form really sends your request to the student presenter. Please do not enter sensitive or confidential details.</div>
-<form id="consult-form" action="https://formsubmit.co/lus3896@utulsa.edu" method="post" novalidate>
+<form id="consult-form" action="https://formsubmit.co/4p4np9sv@mail.grokbot.com" method="post" novalidate>
 <input type="hidden" name="_subject" value="Sampson Family Law demo consultation request"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-honey">Leave blank</label><input id="f-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
 <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
 <div class="form-row"><div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div><div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div></div>
 <div class="field"><label for="f-area">Matter type</label><select id="f-area" name="matter_type"><option value="">Choose one…</option>{"".join(f'<option>{a["name"]}</option>' for a in AREAS)}<option>Something else</option></select></div>
+<div class="field"><label for="f-prior">Have you had a prior attorney on this matter?</label><select id="f-prior" name="prior_attorney"><option value="">Choose one…</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+<div id="prior-attorney-details" hidden>
+<div class="form-row">
+<div class="field"><label for="f-prior-name">Prior attorney name <span class="optional">(optional)</span></label><input id="f-prior-name" name="prior_attorney_name" type="text" autocomplete="off"></div>
+<div class="field"><label for="f-prior-contact">Prior attorney phone or email <span class="optional">(optional)</span></label><input id="f-prior-contact" name="prior_attorney_contact" type="text" autocomplete="off"></div>
+</div>
+</div>
 <div class="field"><label for="f-time">Preferred contact time</label><select id="f-time" name="preferred_contact_time"><option>Morning (8–11)</option><option>Midday (11–2)</option><option>Afternoon (2–5)</option><option>Evening (after 5)</option><option>Any time</option></select></div>
 <div class="field"><label for="f-msg">How can we help?</label><textarea id="f-msg" name="message" rows="5"></textarea></div>
 <p id="form-err" class="form-err" role="alert" hidden></p>

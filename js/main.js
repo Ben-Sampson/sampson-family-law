@@ -26,11 +26,14 @@ const f=$('#consult-form');if(f)f.addEventListener('submit',async e=>{e.preventD
  const nm=$('#f-name').value.trim(),em=$('#f-email').value.trim();
  if(!nm||!/^\S+@\S+\.\S+$/.test(em)){err.textContent='Please enter your name and a valid email.';err.hidden=false;return}
  btn.disabled=true;btn.textContent='Sending…';
- try{const r=await fetch('https://formsubmit.co/ajax/lus3896@utulsa.edu',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});const d=await r.json().catch(()=>({}));
+ try{const r=await fetch('https://formsubmit.co/ajax/4p4np9sv@mail.grokbot.com',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});const d=await r.json().catch(()=>({}));
   if(!r.ok||String(d.success)==='false')throw new Error(d.message||'Send failed');
   $('#ok-title').textContent='Thanks, '+nm+'.';f.reset();f.hidden=true;const n=$('#demo-notice');n.classList.add('show');n.focus()}
  catch(x){err.textContent='Sorry, the request could not be sent ('+x.message+'). Please try again.';err.hidden=false}
  finally{btn.disabled=false;btn.textContent='Send request'}});
+const prior=$('#f-prior'), details=$('#prior-attorney-details');
+function syncPrior(){if(!prior||!details)return;const on=prior.value==='yes';details.hidden=!on;if(!on){const n=$('#f-prior-name'),c=$('#f-prior-contact');if(n)n.value='';if(c)c.value='';}}
+if(prior){prior.addEventListener('change',syncPrior);syncPrior();}
 const y=$('#yr');if(y)y.textContent=new Date().getFullYear();
 })();
 // character galleries: crossfade + Ken Burns (CSS), ~5s/slide, pause on hover/focus/button, reduced motion = no autoplay

@@ -146,6 +146,8 @@ aside.side{position:sticky;top:110px;display:grid;gap:22px}
 .form-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh2);padding:40px;border-top:4px solid var(--gold)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{margin-bottom:18px}.field label{display:block;font-weight:600;font-size:.88rem;color:var(--navy);margin-bottom:6px}
+.field .optional{font-weight:400;color:#6b7785;font-size:.85em}
+#prior-attorney-details[hidden]{display:none}
 .field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1px solid #cfd6de;border-radius:var(--r);font:inherit;font-size:.97rem;background:#fbfcfd;transition:.2s}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(127,179,171,.3);background:#fff}
 .demo-flag{background:#f3efe6;border:1px solid #ddd2bd;color:#4a4232;padding:12px 16px;border-radius:var(--r);font-size:.88rem;margin-bottom:22px}
