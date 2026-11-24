@@ -285,7 +285,7 @@ pages["contact.html"]=("Contact",hero("Contact Us","Tell us a little about your 
 <p id="form-err" class="form-err" role="alert" hidden></p>
 <button type="submit" class="btn" style="width:100%;justify-content:center">Send request</button>
 <p class="fine" style="margin-top:12px">Please don't include confidential details in this form. Submitting it does not create an attorney-client relationship.</p></form>
-<div id="demo-notice" class="demo-notice success" role="status" tabindex="-1"><div class="ok-check" aria-hidden="true">✓</div><h3 id="ok-title">Thanks.</h3><p>Your request was received; this is a class demonstration, so no attorney-client relationship is formed and no legal services will be provided.</p><p class="fine">For real legal help in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p></div></div></div></section>''',"contact")
+<div id="demo-notice" class="demo-notice success" role="status" tabindex="-1"><div class="ok-check" aria-hidden="true">✓</div><h3 id="ok-title">Thanks.</h3><p>Your request is on its way. Submitting this form does not create an attorney-client relationship.</p><p class="fine">For real legal help in Oklahoma, contact <a href="https://www.legalaidok.org/">Legal Aid Services of Oklahoma</a> or a licensed attorney.</p></div></div></div></section>''',"contact")
 
 # ---------- CREDITS
 _used=" ".join(v[1] for v in pages.values())

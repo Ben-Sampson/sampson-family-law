@@ -22,15 +22,17 @@ $$('.carousel').forEach(c=>{const sl=$$('.slide',c),dots=$('.dots',c);let i=0,t;
 $$('[data-count]').forEach(el=>{const end=+el.dataset.count;let s=null;const run=ts=>{s=s||ts;const p=Math.min((ts-s)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+(el.dataset.suffix||'');if(p<1)requestAnimationFrame(run)};
  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){requestAnimationFrame(run);io.disconnect()}});io.observe(el)});
 // consultation form: FormSubmit AJAX (live class demo)
-const f=$('#consult-form');if(f)f.addEventListener('submit',async e=>{e.preventDefault();const err=$('#form-err'),btn=$('button[type=submit]',f);err.hidden=true;
+const f=$('#consult-form');if(f)f.addEventListener('submit',e=>{e.preventDefault();const err=$('#form-err'),n=$('#demo-notice');err.hidden=true;
  const nm=$('#f-name').value.trim(),em=$('#f-email').value.trim();
  if(!nm||!/^\S+@\S+\.\S+$/.test(em)){err.textContent='Please enter your name and a valid email.';err.hidden=false;return}
- btn.disabled=true;btn.textContent='Sending…';
- try{const r=await fetch('https://formsubmit.co/ajax/4p4np9sv@mail.grokbot.com',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});const d=await r.json().catch(()=>({}));
-  if(!r.ok||String(d.success)==='false')throw new Error(d.message||'Send failed');
-  $('#ok-title').textContent='Thanks, '+nm+'.';f.reset();f.hidden=true;const n=$('#demo-notice');n.classList.add('show');n.focus()}
- catch(x){err.textContent='Sorry, the request could not be sent ('+x.message+'). Please try again.';err.hidden=false}
- finally{btn.disabled=false;btn.textContent='Send request'}});
+ const data=new FormData(f),saved=[...f.elements].filter(x=>x.name).map(x=>[x,x.value]);
+ $('#ok-title').textContent='Thanks, '+nm+'.';f.hidden=true;n.classList.add('show');n.focus();
+ const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),20000);
+ fetch('https://formsubmit.co/ajax/4p4np9sv@mail.grokbot.com',{method:'POST',headers:{'Accept':'application/json'},body:data,keepalive:true,signal:ctl.signal})
+  .then(async r=>{const d=await r.json().catch(()=>({}));if(!r.ok||String(d.success)==='false')throw new Error(d.message||'Send failed');f.reset()})
+  .catch(x=>{n.classList.remove('show');f.hidden=false;saved.forEach(([el,v])=>{if(el.type!=='hidden')el.value=v});syncPrior&&syncPrior();
+   err.textContent='Sorry, your request did not go through'+(x.name==='AbortError'?' (timed out)':'')+'. Please try again.';err.hidden=false;err.scrollIntoView({block:'center'})})
+  .finally(()=>clearTimeout(t))});
 const prior=$('#f-prior'), details=$('#prior-attorney-details');
 function syncPrior(){if(!prior||!details)return;const on=prior.value==='yes';details.hidden=!on;if(!on){const n=$('#f-prior-name'),c=$('#f-prior-contact');if(n)n.value='';if(c)c.value='';}}
 if(prior){prior.addEventListener('change',syncPrior);syncPrior();}
